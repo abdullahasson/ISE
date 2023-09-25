@@ -126,11 +126,6 @@ button:active {
 
 
 /* image */
-.bord {
-  background-color: #2AF598;
-}
-
-
 .image {
   width: 20rem;
   cursor: zoom-in;
@@ -140,10 +135,7 @@ button:active {
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
 }
-.image:hover {
-  filter: invert(0.2);
-  -webkit-filter: invert(0.2);
-}
+
 
 /* Loader */
 @-webkit-keyframes honeycomb {

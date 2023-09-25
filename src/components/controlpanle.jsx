@@ -1,13 +1,12 @@
 import { useEffect , useState } from "react";
-import "../style.css"
+import "../panle.css"
 
 export default function Control() {
-
-
 
     useEffect(() => {
         const canvas = document.getElementById("canvas");
         const img = document.getElementById("Im")
+        // img.crossOrigin = "Anonymous";
         const ctx = canvas.getContext('2d');
         canvas.width = img.width;
         canvas.height = img.height;
@@ -23,9 +22,10 @@ export default function Control() {
         canvas.style.maxHeight = "500px"
 
         const dow = document.getElementById("download");
-
-        dow.onclick = () => {
-            dow.href = canvas.toDataURL();
+        img.onload = () => {
+            dow.onclick = () => {
+                dow.href = canvas.toDataURL();
+            }
         }
     })
 
@@ -53,10 +53,10 @@ export default function Control() {
     `;
 
     return (
-        <div className="panle p-2 flex justify-between items-center rounded-md mt-auto" >
+        <div className="panle flex p-2 justify-between items-center rounded-md mt-auto">
             
             <div className="bord">
-                <img className='' id="Im" src="" alt="" style={{ filter: values}} />
+                <img className='' id="Im" src="https://images.unsplash.com/photo-1662010021854-e67c538ea7a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1MDMzOTJ8MXwxfHNlYXJjaHwxfHxjYXJ8ZW58MHx8fHwxNjk1NTg0MDk2fDA&ixlib=rb-4.0.3&q=85" alt="" style={{ filter: values}} />
                 <canvas id="canvas"></canvas>
             </div>
 

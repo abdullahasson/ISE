@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333;
+} */
+
+.panle {
+    width: 800px;
+    background-color: #1f1d1dc9;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -50%);
+    -webkit-transform: translate(-50% , -50%);
+    -moz-transform: translate(-50% , -50%);
+    -ms-transform: translate(-50% , -50%);
+    -o-transform: translate(-50% , -50%);
+}
+
+@media (max-width:767px) {
+    .panle {
+        width: 100vw;
+        height: 100vh;
+        justify-content: space-evenly;
+    }
+}
+
+.panle img , canvas {
+    width: 100%;
+}
+
+@media (max-width:767px) {
+    .panle img , canvas {
+        max-width: 400px !important;
+        max-height: 260px !important;
+    }
+}
+
+.bord {
+    margin: 25px;
+    width: 400px;
+}
+
+@media (max-width:767px) {
+    .bord {
+        margin: 0;
+    }
+}
+
+form {
+    width: 50%;
+}
+
+@media (max-width:550px) {
+    form {
+        width: 80%;
+    }
+}
+
+.part {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+}
+
+.part label {
+    width: 100%;
+    color: white;
+    font-size: 16px;
+    text-align: end;
+}
+
+.part input {
+    width: 100%;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.part input::-webkit-slider-thumb {
+    cursor: pointer;
+}
+
+
+/* This is Button  */
+
+
+.buttons button {
+    width: 9em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    font-family: inherit;
+    border: none;
+    color: white;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background-color: #1c1c1c99;
+} 
+
+.buttons button::before {
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #333 0%, black 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+}
+
+.buttons button:hover::before {
+    width: 9em;
+}
+
+
+/* #####################  */
+
+
+/* custom input file */
+.custum-file-upload {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 200px;
+    width: 300px;
+    flex-direction: column;
+    align-items: space-between;
+    gap: 20px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #cacaca;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 48px 35px -48px rgba(0,0,0,0.1);
+    transform: translate(-50% , -50%);
+    -webkit-transform: translate(-50% , -50%);
+    -moz-transform: translate(-50% , -50%);
+    -ms-transform: translate(-50% , -50%);
+    -o-transform: translate(-50% , -50%);
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+@media (max-width:767px) {
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 0 !important;
+    }
+}
+
+.custum-file-upload:hover {
+    background-color: #33333387;
+}
+
+.custum-file-upload .icon {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+height: 80px;
+fill: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload .text {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.custum-file-upload .text span {
+font-weight: 400;
+color: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload input {
+display: none;
+}
+
+
+
+
+
+/* responsive */
+@media (max-width:767px) {
+    .panle {
+        flex-direction: column;
+    }
+}
