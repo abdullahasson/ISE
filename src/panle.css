@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&family=Dosis:wght@200;300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Molle&family=Open+Sans:ital,wght@0,700;0,800;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,15 +10,7 @@
     margin: 0;
     box-sizing: border-box;
 }
-
-/* body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #333;
-} */
-
+ 
 .panle {
     width: 800px;
     background-color: #1f1d1dc9;
@@ -51,7 +46,52 @@
 .bord {
     margin: 25px;
     width: 400px;
+    position: relative;
 }
+
+.bord .loader {
+    display: block;
+    --height-of-loader: 4px;
+    --loader-color: #0071e2;
+    width: 130px;
+    height: var(--height-of-loader);
+    border-radius: 30px;
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -50%);
+    -webkit-transform: translate(-50% , -50%);
+    -moz-transform: translate(-50% , -50%);
+    -ms-transform: translate(-50% , -50%);
+    -o-transform: translate(-50% , -50%);
+}
+  
+.bord  .loader::before {
+    content: "";
+    position: absolute;
+    background: var(--loader-color);
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    border-radius: 30px;
+    animation: moving 1s ease-in-out infinite;
+    ;
+  }
+  
+  @keyframes moving {
+    50% {
+      width: 100%;
+    }
+  
+    100% {
+      width: 0;
+      right: 0;
+      left: unset;
+    }
+  }
+
 
 @media (max-width:767px) {
     .bord {
@@ -98,9 +138,17 @@ form {
 
 
 /* This is Button  */
+.download {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.download.active::before {
+    width: 9em;
+}
 
-.buttons button {
+.buttons button , .download  {
     width: 9em;
     height: 3em;
     border-radius: 30em;
@@ -115,7 +163,7 @@ form {
     background-color: #1c1c1c99;
 } 
 
-.buttons button::before {
+.buttons button::before , .download::before {
     content: '';
     width: 0;
     height: 3em;
@@ -129,88 +177,12 @@ form {
     z-index: -1;
 }
 
-.buttons button:hover::before {
+.buttons button:hover::before , .download:hover::before {
     width: 9em;
 }
 
 
 /* #####################  */
-
-
-/* custom input file */
-.custum-file-upload {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 200px;
-    width: 300px;
-    flex-direction: column;
-    align-items: space-between;
-    gap: 20px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed #cacaca;
-    background-color: rgba(255, 255, 255, 1);
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0px 48px 35px -48px rgba(0,0,0,0.1);
-    transform: translate(-50% , -50%);
-    -webkit-transform: translate(-50% , -50%);
-    -moz-transform: translate(-50% , -50%);
-    -ms-transform: translate(-50% , -50%);
-    -o-transform: translate(-50% , -50%);
-    transition: 0.3s;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-    -ms-transition: 0.3s;
-    -o-transition: 0.3s;
-}
-
-@media (max-width:767px) {
-    form {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        padding: 0 !important;
-    }
-}
-
-.custum-file-upload:hover {
-    background-color: #33333387;
-}
-
-.custum-file-upload .icon {
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.custum-file-upload .icon svg {
-height: 80px;
-fill: rgba(75, 85, 99, 1);
-}
-
-.custum-file-upload .text {
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.custum-file-upload .text span {
-font-weight: 400;
-color: rgba(75, 85, 99, 1);
-}
-
-.custum-file-upload input {
-display: none;
-}
-
-
-
-
 
 /* responsive */
 @media (max-width:767px) {
@@ -218,3 +190,72 @@ display: none;
         flex-direction: column;
     }
 }
+
+
+/* Download Loading Button */
+.btnload {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .btnload div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: white;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  
+  .btnload div:nth-child(1) {
+    left: 8px;
+    animation: flip1 0.6s infinite;
+  }
+  
+  .btnload div:nth-child(2) {
+    left: 8px;
+    animation: flip2 0.6s infinite;
+  }
+  
+  .btnload div:nth-child(3) {
+    left: 32px;
+    animation: flip2 0.6s infinite;
+  }
+  
+  .btnload div:nth-child(4) {
+    left: 56px;
+    animation: flip3 0.6s infinite;
+  }
+  
+  @keyframes flip1 {
+    0% {
+      transform: scale(0);
+    }
+  
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes flip3 {
+    0% {
+      transform: scale(1);
+    }
+  
+    100% {
+      transform: scale(0);
+    }
+  }
+  
+  @keyframes flip2 {
+    0% {
+      transform: translate(0, 0);
+    }
+  
+    100% {
+        transform: translate(24px, 0);
+    }
+  }

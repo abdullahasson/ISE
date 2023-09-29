@@ -1,12 +1,44 @@
 import { useEffect , useState } from "react";
 import "../panle.css"
+import data from "./imagedata";
+import Btnload from "./btnload";
+import axios from 'axios';
 
 export default function Control() {
 
+
+    // get image from main section
+    const [getU , setGetu] = useState()
+    const [waitImag , setwaitImag] = useState(false)
+    useEffect(() => {
+
+        const getimage = async () => {
+            setwaitImag(true)
+            try {
+                const response = await axios.get(data[0] , {
+                    responseType: 'blob', 
+                });
+
+                const blob = await response.data;
+                const imageURL = URL.createObjectURL(blob);
+            
+                setGetu(imageURL)
+
+            } catch (error) {
+                console.log(error);
+            }
+            setwaitImag(false)
+            setSaturate(saturate + 0.1)
+        } 
+
+        getimage()
+    } , [])
+
+
+    // Download Section 
     useEffect(() => {
         const canvas = document.getElementById("canvas");
         const img = document.getElementById("Im")
-        // img.crossOrigin = "Anonymous";
         const ctx = canvas.getContext('2d');
         canvas.width = img.width;
         canvas.height = img.height;
@@ -22,13 +54,18 @@ export default function Control() {
         canvas.style.maxHeight = "500px"
 
         const dow = document.getElementById("download");
-        img.onload = () => {
-            dow.onclick = () => {
-                dow.href = canvas.toDataURL();
-            }
+        dow.onclick = () => {
+            setNow(true)
+            dow.href = canvas.toDataURL(); 
+            dow.classList.add("active")
+            setNow(false)
         }
     })
 
+    // Loading effect
+    const [now , setNow] = useState(false)
+
+    // store the values of ranges
     const [blur, setBlur] = useState(0);
     const [brightness, setBrightness] = useState(1);
     const [grayscale, setGrayscale] = useState(0);
@@ -38,6 +75,7 @@ export default function Control() {
     const [saturate, setSaturate] = useState(1);
     const [sepia, setSepia] = useState(0);
     const [invert, setInvert] = useState(0);
+
 
     const values =
         `
@@ -52,11 +90,14 @@ export default function Control() {
         invert(${invert})
     `;
 
+
+
     return (
         <div className="panle flex p-2 justify-between items-center rounded-md mt-auto">
             
             <div className="bord">
-                <img className='' id="Im" src="https://images.unsplash.com/photo-1662010021854-e67c538ea7a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1MDMzOTJ8MXwxfHNlYXJjaHwxfHxjYXJ8ZW58MHx8fHwxNjk1NTg0MDk2fDA&ixlib=rb-4.0.3&q=85" alt="" style={{ filter: values}} />
+                <div className="loader" style={{display: waitImag ? "block" : "none"}}></div>
+                <img src={getU} id="Im" alt="" style={{filter : values}}/>
                 <canvas id="canvas"></canvas>
             </div>
 
@@ -64,71 +105,62 @@ export default function Control() {
 
                 {/* Brightness */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setBrightness(e.target.value)}} value={brightness} max={3} step={0.1} />
+                    <input type="range" onChange={(e) => {setBrightness(e.target.value)}} value={brightness} max={3} step={0.1} />
                     <label htmlFor="">Brightness</label>
                 </div>
 
                 {/* Contrast */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setContrast(e.target.value)}} value={contrast} max={3} step={0.1} />
+                    <input type="range" onChange={(e) => {setContrast(e.target.value)}} value={contrast} max={3} step={0.1} />
                     <label htmlFor="">Contrast</label>
                 </div>
 
                 {/* saturate */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setSaturate(e.target.value)}} value={saturate} max={3} step={0.1} />
+                    <input type="range" onChange={(e) => {setSaturate(e.target.value)}} value={saturate} max={3} step={0.1} />
                     <label htmlFor="">saturate</label>
                 </div>
 
                 {/* blur */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setBlur(e.target.value)}} value={blur} max={10} step={0.1} />
+                    <input type="range" onChange={(e) => {setBlur(e.target.value)}} value={blur} max={10} step={0.1} />
                     <label htmlFor="">Blur</label>
                 </div>
 
                 {/* Grayscale */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setGrayscale(e.target.value)}} value={grayscale} max={1} step={0.1} />
+                    <input type="range" onChange={(e) => {setGrayscale(e.target.value)}} value={grayscale} max={1} step={0.1} />
                     <label htmlFor="">Grayscale</label>
                 </div>
 
                 {/* hue rotate */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setHuerotate(e.target.value)}} value={hueRotate} max={360} step={1} />
+                    <input type="range" onChange={(e) => {setHuerotate(e.target.value)}} value={hueRotate} max={360} step={1} />
                     <label htmlFor="">hueRotate</label>
                 </div>
 
                 {/* sepia */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setSepia(e.target.value)}} value={sepia} max={1} step={0.1} />
+                    <input type="range" onChange={(e) => {setSepia(e.target.value)}} value={sepia} max={1} step={0.1} />
                     <label htmlFor="">sepia</label>
                 </div>
 
                 {/* invert */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setInvert(e.target.value)}} value={invert} max={1} step={0.1} />
+                    <input type="range" onChange={(e) => {setInvert(e.target.value)}} value={invert} max={1} step={0.1} />
                     <label htmlFor="">invert</label>
                 </div>
 
 
                 {/* Opacite */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => {
-                        setOpacity(e.target.value)}} value={opacity} max={1} step={0.1} />
+                    <input type="range" onChange={(e) => {setOpacity(e.target.value)}} value={opacity} max={1} step={0.1} />
                     <label htmlFor="">Opacite</label>
                 </div>
 
 
                 <div className="buttons p-4 flex items-center justify-center gap-3">
-                    <button className="download" ><a download="image" id="download" href="">Download</a></button>
+                    <a download="image" id="download" href="" className="download">{now ? <Btnload /> : <span>Download</span>}</a>
                     <button className="reset" href=""  onClick={() => {
                         setBlur(0)
                         setBrightness(1)
