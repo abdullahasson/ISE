@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Title from "./title";
 import Img from "./img";
+// import Poppup from "./"
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
@@ -16,7 +17,6 @@ function Container() {
     const [show , setShow] = useState("false")
     const [isDownloading, setIsDownloading] = useState(false);
 
-
     const fetchData = async () => {
         setIsDownloading(true)
         try {
@@ -27,12 +27,12 @@ function Container() {
             const result = await Promise.all([response1, response2, response3]);
             const [data1, data2, data3] = result.map(res => res.data.results);
     
-        setdataImg(data1);
-        setdataImgt(data2);
-        setdataImgth(data3);
+            setdataImg(data1);
+            setdataImgt(data2);
+            setdataImgth(data3);
 
         } catch (error) {
-            console.log(error.message)
+            console.log(error.massage)
         }
         setIsDownloading(false)
     } 
@@ -61,7 +61,7 @@ function Container() {
         <>
             <div className="container flex flex-col items-center justify-between">
             
-                <form action="" onSubmit={(e) => {e.preventDefault()}}  className="flex justify-between items-center flex-col gap-10 p-12">
+                <form action="" onSubmit={(e) => {e.preventDefault()}}  className="flex justify-between items-center flex-col gap-10 p-12 w-full">
 
                     <Title />
 

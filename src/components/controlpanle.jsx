@@ -6,7 +6,6 @@ import axios from 'axios';
 
 export default function Control() {
 
-
     // get image from main section
     const [getU , setGetu] = useState()
     const [waitImag , setwaitImag] = useState(false)
@@ -28,7 +27,6 @@ export default function Control() {
                 console.log(error);
             }
             setwaitImag(false)
-            setSaturate(saturate + 0.1)
         } 
 
         getimage()
@@ -58,7 +56,7 @@ export default function Control() {
             setNow(true)
             dow.href = canvas.toDataURL(); 
             dow.classList.add("active")
-            setNow(false)
+            
         }
     })
 
@@ -101,7 +99,7 @@ export default function Control() {
                 <canvas id="canvas"></canvas>
             </div>
 
-            <form action="" className="flex flex-col gap-3 p-8 relative" onSubmit={(event) => {event. preventDefault()}}>
+            <form action="" className="flex flex-col gap-3 p-8 relative max-[566px]:w-full" onSubmit={(event) => {event. preventDefault()}}>
 
                 {/* Brightness */}
                 <div className="part"  >

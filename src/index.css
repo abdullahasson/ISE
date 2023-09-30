@@ -154,6 +154,9 @@ body {
 
 /* image */
 .image {
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
   width: 20rem;
   cursor: zoom-in;
   transition: 0.3s;
@@ -176,14 +179,18 @@ body {
   grid-template-columns: repeat(3 ,minmax(0,1fr));
 }
 
-
+@media (max-width: 767px) {
+  .content {
+    grid-template-columns: repeat(1 ,minmax(0,1fr));
+  }
+}
 
 
 /* Loader when you move from container to panle */
 #wifi-loader {
   --background: #62abff;
   --front-color: #4f29f0;
-  --back-color: #c3c8de;
+  --back-color: #ffffff ;
   --text-color: #414856;
   width: 64px;
   height: 64px;
@@ -221,10 +228,9 @@ body {
 
 #wifi-loader svg circle.back {
   stroke: var(--back-color);
-}
-
-#wifi-loader svg circle.front {
-  stroke: var(--front-color);
+  background: linear-gradient(90deg, #2AF598 0%, #009EFD 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 }
 
 #wifi-loader svg.circle-outer {
@@ -240,9 +246,6 @@ body {
   animation: circle-outer135 1.8s ease infinite 0.3s;
 }
 
-#wifi-loader svg.circle-outer circle.front {
-  animation: circle-outer135 1.8s ease infinite 0.15s;
-}
 
 #wifi-loader svg.circle-middle {
   height: 60px;
@@ -255,10 +258,6 @@ body {
 
 #wifi-loader svg.circle-middle circle.back {
   animation: circle-middle6123 1.8s ease infinite 0.25s;
-}
-
-#wifi-loader svg.circle-middle circle.front {
-  animation: circle-middle6123 1.8s ease infinite 0.1s;
 }
 
 #wifi-loader svg.circle-inner {
@@ -274,9 +273,6 @@ body {
   animation: circle-inner162 1.8s ease infinite 0.2s;
 }
 
-#wifi-loader svg.circle-inner circle.front {
-  animation: circle-inner162 1.8s ease infinite 0.05s;
-}
 
 #wifi-loader .text {
   position: absolute;
@@ -299,7 +295,7 @@ body {
 }
 
 #wifi-loader .text::after {
-  color: var(--front-color);
+  color: white;
   animation: text-animation76 3.6s ease infinite;
   position: absolute;
   left: 0;
@@ -385,3 +381,34 @@ body {
   }
 }
  
+
+.card {
+  width: 190px;
+  height: 254px;
+  transition: all 0.2s;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform:translate(-50% , -50%);
+  cursor: pointer;
+  
+}
+
+.card-inner {
+  width: inherit;
+  height: inherit;
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+/* a {
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+} */
