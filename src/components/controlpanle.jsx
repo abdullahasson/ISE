@@ -91,7 +91,7 @@ export default function Control() {
 
 
     return (
-        <div className="panle flex p-2 justify-between items-center rounded-md mt-auto">
+        <div className="panle flex p-2 justify-center items-center rounded-md mt-auto">
             
             <div className="bord">
                 <div className="loader" style={{display: waitImag ? "block" : "none"}}></div>
