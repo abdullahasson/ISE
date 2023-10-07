@@ -37,7 +37,7 @@ export default function Control(Props) {
 
 
             setTimeout(() => {
-                setSaturate(1.1)
+                setSaturate(1)
             }, 200);
         }
 
@@ -113,12 +113,13 @@ export default function Control(Props) {
     `;
 
 
-
+    document.body.style.overflow = "hidden"
     return (
         <div className="panle flex p-2 justify-center items-center mt-auto" style={{ width: Fullw ? "100%" : "auto", height: Fullw ? "100%" : "auto" }}>
             <div className="closeb absolute left-0 top-0 flex justify-start items-center">
                 <button className="close w-9 h-9 cursor-pointer text-white flex justify-center items-center p-0" onClick={() => {
                     Props.close(false)
+                    document.body.style.overflow = "auto"
                 }}><FontAwesomeIcon icon={faXmark} style={{color: "#ffffff",}} /></button>
                 <button className="waed w-9 h-9 cursor-pointer text-white flex justify-center items-center p-0" onClick={() => {
                     setFullw(Fullw ? false : true)

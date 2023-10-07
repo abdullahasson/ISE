@@ -1,4 +1,4 @@
-function Poppup(Props) {
+function Poppup() {
     return(
     <div className="card">
         <div className="card-inner"></div>
