@@ -38,7 +38,7 @@ export default function Control(Props) {
 
             setTimeout(() => {
                 setSaturate(1)
-            }, 200);
+            }, 100);
         }
 
         getimage()
@@ -65,18 +65,6 @@ export default function Control(Props) {
 
         const dow = document.getElementById("download");
         dow.onclick = () => {
-            // const downloadImage = async () => {
-            //     setNow(true)
-            //     dow.classList.add("active")
-            //     try {
-            //         dow.href = await canvas.toDataURL();
-            //     } catch (error) {
-            //         console.log(error);
-            //     }
-            //     setNow(false)
-            //     dow.classList.remove("active")
-            // } 
-            // downloadImage()
             setNow(true)
             dow.classList.add("active")
             dow.href = canvas.toDataURL();
@@ -133,7 +121,7 @@ export default function Control(Props) {
             </div>
 
             <form action="" className="flex flex-col gap-3 p-8 relative max-[566px]:w-full" onSubmit={(event) => { event.preventDefault() }}
-                style={{ pointerEvents: waitImag ? "none" : "all" }}
+                style={{ pointerEvents: waitImag ? "none" : "all"}}
             >
 
                 {/* Brightness */}

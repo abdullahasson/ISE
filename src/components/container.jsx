@@ -4,6 +4,7 @@ import Title from "./title";
 import Img from "./img";
 import axios from 'axios';
 import Control from "./controlpanle"
+import Poppup from "./poppup"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,9 +15,11 @@ function Container() {
     const [dataImgt , setdataImgt] = useState([])
     const [dataImgth , setdataImgth] = useState([])
     const [KeyWord , setKeyWord] = useState("")
-    const [show , setShow] = useState("false")
+    const [show , setShow] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false);
     const [showpanle , setshowpanle] = useState(false)
+    const [errorPoppup , setErrorPoppup] = useState(false)
+    const [errorMessage , setErrorMessage] = useState("")
 
     const inputRef = useRef(null);
     useEffect(() => {
@@ -37,9 +40,11 @@ function Container() {
             setdataImg(data1);
             setdataImgt(data2);
             setdataImgth(data3);
+            setErrorPoppup(false)
 
         } catch (error) {
-            console.log(error.massage)
+            setErrorMessage(error.message)
+            setErrorPoppup(true)
         }
         setIsDownloading(false)
     } 
@@ -67,6 +72,7 @@ function Container() {
     return (
         <>
             {showpanle ? <Control close={showpanle => setshowpanle(showpanle)} /> : null}
+            {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
 
             <div className="container flex flex-col items-center justify-between" 
                 style={{pointerEvents: showpanle ? "none" : "all" , filter: showpanle ? "blur(4px)" : "blur(0px)" }}>
@@ -77,14 +83,15 @@ function Container() {
 
                     <div className="searchBox">
                         <input className="searchInput" type="text" value={KeyWord} name placeholder="Search something" onChange={(e) => {
-                            setKeyWord(e.target.value)
+                                setKeyWord(e.target.value)
+                                setShow(false)
                             }}  ref={inputRef}/>
                         <button className="searchButton" type="submit" onClick={() => {
                                 if (KeyWord.length > 0) {
-                                    fetchData();
-                                    setShow("true") 
+                                    fetchData()
+                                    setShow(true) 
                                 } else {
-                                    console.log("there is nothing to searsh")
+                                    window.alert("there is nothing to searsh")
                                 }
                             }}>
                             <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={{color: "#ffffff",}} />
@@ -93,9 +100,13 @@ function Container() {
                 </form>
 
                 <div className="content flex justify-center items-center flex-wrap ">
-                    <div className="qure flex flex-col gap-6">{show == "true" ? showdata : null}</div>
-                    <div className="qure flex flex-col gap-6">{show == "true" ? showdatat : null}</div>
-                    <div className="qure flex flex-col gap-6">{show == "true" ? showdatath : null}</div>
+                    {show ? (
+                        <>
+                            <div className="qure flex flex-col gap-6">{showdata}</div>
+                            <div className="qure flex flex-col gap-6">{showdatat}</div>
+                            <div className="qure flex flex-col gap-6">{showdatath}</div>
+                        </>
+                    ) : null}
                 </div>
             </div>
 
