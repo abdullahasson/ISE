@@ -17,8 +17,9 @@ export default function Control(Props) {
 
 
     useEffect(() => {
-
+        
         const getimage = async () => {
+            // show loader while the image complete 
             setwaitImag(true)
             try {
                 const response = await axios.get(data[0], {
@@ -33,6 +34,7 @@ export default function Control(Props) {
             } catch (error) {
                 console.log(error);
             }
+            // disapperar the loader when the image complete
             setwaitImag(false)
 
 
@@ -67,7 +69,7 @@ export default function Control(Props) {
         dow.onclick = () => {
             setNow(true)
             dow.classList.add("active")
-            dow.href = canvas.toDataURL();
+            dow.href = canvas.toDataURL("image/jpg");
         }
     })
 
