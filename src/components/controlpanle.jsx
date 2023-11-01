@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "../panle.css"
-import data from "./imagedata";
 import Btnload from "./btnload";
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +21,7 @@ export default function Control(Props) {
             // show loader while the image complete 
             setwaitImag(true)
             try {
-                const response = await axios.get(data[0], {
+                const response = await axios.get(Props.photoup , {
                     responseType: 'blob',
                 });
 
@@ -37,9 +36,8 @@ export default function Control(Props) {
             // disapperar the loader when the image complete
             setwaitImag(false)
 
-
             setTimeout(() => {
-                setSaturate(1)
+                setSaturate(1.1)
             }, 100);
         }
 
@@ -104,6 +102,7 @@ export default function Control(Props) {
 
 
     document.body.style.overflow = "hidden"
+    
     return (
         <div className="panle flex p-2 justify-center items-center mt-auto" style={{ width: Fullw ? "100%" : "auto", height: Fullw ? "100%" : "auto" }}>
             <div className="closeb absolute left-0 top-0 flex justify-start items-center">
