@@ -68,6 +68,10 @@ export default function Control(Props) {
             setNow(true)
             dow.classList.add("active")
             dow.href = canvas.toDataURL("image/jpg");
+            setTimeout(() => {
+                setNow(false)
+                dow.classList.remove("active")
+            }, 2000);
         }
     })
 
