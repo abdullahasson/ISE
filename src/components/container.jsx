@@ -1,20 +1,20 @@
 /* eslint-disable react/jsx-key */
 import { useEffect , useRef , useState } from "react";
 import Title from "./title";
-import Img from "./img";
 import axios from 'axios';
 import Control from "./controlpanle"
 import Poppup from "./poppup"
-import Setting from "./setting";
+import Drawe from "./Drawer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css"
+import Masonry from "react-responsive-masonry"
 
 function Container() {
     const Acces = "kwoGX8fZRJ3jT0fIXiGQApZDXret2VF3gRsaMZokv0g"
-   
+
     const [dataImg , setdataImg] = useState([])
-    const [dataImgt , setdataImgt] = useState([])
-    const [dataImgth , setdataImgth] = useState([])
     const [KeyWord , setKeyWord] = useState("")
     const [show , setShow] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false);
@@ -31,16 +31,11 @@ function Container() {
     const fetchData = async (parm) => {
         setIsDownloading(true)
         try {
-            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=10content_filter=low&client_id=${Acces}`);
-            const response2 = axios.get(`https://api.unsplash.com/search/photos?page=2&query=${parm}&per_page=10content_filter=low&client_id=${Acces}`);
-            const response3 = axios.get(`https://api.unsplash.com/search/photos?page=3&query=${parm}&per_page=10content_filter=low&client_id=${Acces}`);
-    
-            const result = await Promise.all([response1 , response2 , response3]);
-            const [data1, data2, data3] = result.map(res => res.data.results);
+            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=30content_filter=low&client_id=${Acces}`);
+            const result = await Promise.all([response1]);
+            const [data1] = result.map(res => res.data.results);
     
             setdataImg(data1);
-            setdataImgt(data2);
-            setdataImgth(data3);
             setErrorPoppup(false)
 
         } catch (error) {
@@ -48,63 +43,31 @@ function Container() {
             setErrorPoppup(true)
         }
         setIsDownloading(false)
-        console.log(showdata , showdatat , showdatath)
+        setShow(true)
     } 
-    
-    
 
-    const showdata = dataImg.map(mg => 
-        <Img
-            full={mg.urls.full}
-            thumb={mg.urls.thumb}
-            small={mg.urls.small} 
-            idA={mg.id} 
-            sh={showpanle => setshowpanle(showpanle)} 
-            imageUrl={imageurlforpanle => setimageurlforpanle(imageurlforpanle)} 
-        />)
-
-    const showdatat = dataImgt.map(mg => 
-        <Img
-            full={mg.urls.full} 
-            thumb={mg.urls.thumb}
-            small={mg.urls.small} 
-            idA={mg.id} 
-            sh={showpanle => setshowpanle(showpanle)} 
-            imageUrl={imageurlforpanle => setimageurlforpanle(imageurlforpanle)} 
-        />)
-
-    const showdatath = dataImgth.map(mg => 
-        <Img
-            full={mg.urls.full} 
-            thumb={mg.urls.thumb}
-            small={mg.urls.small} 
-            idA={mg.id} 
-            sh={showpanle => setshowpanle(showpanle)}
-            imageUrl={imageurlforpanle => setimageurlforpanle(imageurlforpanle)} 
-        />) 
 
     return (
         <>
             {showpanle ? <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} /> : null}
             {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
-            <Setting go="/ISE/Setting" iconp="home"/>
 
             <div className="container flex flex-col items-center justify-between" 
                 style={{pointerEvents: showpanle ? "none" : "all" , filter: showpanle ? "blur(6px)" : "blur(0px)" }}>
         
-                <form action="" onSubmit={(e) => {e.preventDefault()}}  className="flex justify-between items-center flex-col gap-10 p-12 w-full">
+                <Drawe />
 
+                <form action="" onSubmit={(e) => {e.preventDefault()}}  className="flex justify-between items-center flex-col gap-10 p-12 w-full">
                     <Title />
 
                     <div className="searchBox">
                         <input className="searchInput" type="text" value={KeyWord} name placeholder="Search something" onChange={(e) => {
-                                setKeyWord(e.target.value)
                                 setShow(false)
+                                setKeyWord(e.target.value)
                             }}  ref={inputRef} style={{pointerEvents : isDownloading ? "none" : "all"}}/>
                         <button className="searchButton" type="submit" style={{pointerEvents : isDownloading ? "none" : "all"}} onClick={() => {
                                 if (KeyWord.length > 0) {
                                     fetchData(KeyWord)
-                                    setShow(true)
                                 } else {
                                     setErrorMessage("there is nothing to searsh")
                                     setErrorPoppup(true)
@@ -115,16 +78,25 @@ function Container() {
                     </div>
                 </form>
 
-                <div className="content flex justify-center items-center flex-wrap">
-                    {show ? (
-                        <>
-                            <div className="qure flex flex-col gap-6 ">{showdata}</div>
-                            <div className="qure flex flex-col gap-6">{showdatat}</div>
-                            <div className="qure flex flex-col gap-6">{showdatath}</div>
-                        </>
-                    ) : null}
-                </div>
+                {show ? (      
+                    <Masonry columnsCount={3} gutter={20} className="mb-6">
+                        {dataImg.map(mg => 
+                            <LazyLoadImage 
+                                effect="blur"
+                                src={mg.urls.thumb}
+                                className="w-full"
+                                onClick={
+                                    () => {
+                                        setimageurlforpanle(mg.urls.thumb)
+                                        setshowpanle(true)
+                                    }
+                                }
+                            />    
+                        )}
+                    </Masonry>
+                ) : null}
             </div>
+        
 
             <div id="wifi-loader" style={{display : isDownloading ? "flex" : "none"}}>
                 <svg className="circle-outer" viewBox="0 0 86 86">

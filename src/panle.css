@@ -166,6 +166,10 @@ form {
     -o-transform: rotate(180deg);
 }
 
+/* .panle span {
+  padding: 5px 0px;
+} */
+
 .part input::-webkit-slider-thumb {
     cursor: pointer;
 }

@@ -1,0 +1,39 @@
+.image-gallery-image {
+    cursor: auto;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    width: 100%;
+}
+
+.image-gallery-image:hover {
+    border: none;
+}
+
+.imageG-cover {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width : 400px) {
+    .imageG-cover {
+        margin: auto;
+        height: 89vh
+    }
+}
+
+/* Buttons */
+.image-gallery-right-nav ,
+.image-gallery-left-nav {
+    position: fixed;
+    top: 50%;
+}
+
+.image-gallery-play-button ,
+.image-gallery-fullscreen-button {
+    position: fixed;
+}

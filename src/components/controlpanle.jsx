@@ -4,19 +4,16 @@ import Btnload from "./btnload";
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark , faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
-
-
+import { Slider } from '@mui/material';
 
 
 export default function Control(Props) {
-
     // get image from main section
     const [getU, setGetu] = useState()
     const [waitImag, setwaitImag] = useState(false)
 
 
     useEffect(() => {
-        
         const getimage = async () => {
             // show loader while the image complete 
             setwaitImag(true)
@@ -43,6 +40,7 @@ export default function Control(Props) {
 
         getimage()
     }, [])
+
 
 
     // Download Section 
@@ -106,7 +104,9 @@ export default function Control(Props) {
 
 
     document.body.style.overflow = "hidden"
-    
+    // document.querySelector(".setting").style.filter = "blur(6px)"
+    // document.querySelector(".setting").style.pointerEvents = "none"
+
     return (
         <div className="panle flex p-2 justify-center items-center mt-auto" style={{ width: Fullw ? "100%" : "auto", height: Fullw ? "100%" : "auto" }}>
             <div className="closeb absolute left-0 top-0 flex justify-start items-center">
@@ -114,73 +114,154 @@ export default function Control(Props) {
                     Props.close(false)
                     document.body.style.overflow = "auto"
                 }}><FontAwesomeIcon icon={faXmark} style={{color: "#ffffff",}} /></button>
-                <button className="waed w-9 h-9 cursor-pointer text-white flex justify-center items-center p-0" onClick={() => {
+                <button className="waed w-9 h-9 cursor-pointer text-white flex justify-center items-center p-0" 
+                onClick={() => {
                     setFullw(Fullw ? false : true)
-                }}>{Fullw ? <FontAwesomeIcon icon={faCompress} style={{ color: "#ffffff", }} /> : <FontAwesomeIcon icon={faExpand} style={{ color: "#ffffff", }} />}</button>
+                }}
+                >{Fullw ? <FontAwesomeIcon icon={faCompress} style={{ color: "#ffffff", }} /> : <FontAwesomeIcon icon={faExpand} style={{ color: "#ffffff", }} />}</button>
             </div>
-
             <div className="bord">
                 <div className="loader" style={{ display: waitImag ? "block" : "none" }}></div>
                 <img src={getU} id="Im" alt="" style={{ filter: values }} />
                 <canvas id="canvas"></canvas>
             </div>
 
-            <form action="" className="flex flex-col gap-3 p-8 relative max-[566px]:w-full" onSubmit={(event) => { event.preventDefault() }}
+
+            <form action="" className="flex flex-col gap-0 p-8 relative max-[566px]:w-full" onSubmit={(event) => { event.preventDefault() }}
                 style={{ pointerEvents: waitImag ? "none" : "all"}}
             >
 
-                {/* Brightness */}
+                
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setBrightness(e.target.value) }} value={brightness} max={3} step={0.1} />
+                    <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setBrightness(e.target.value) }}
+                        value={brightness} 
+                        max={3} 
+                        step={0.1}
+                    />
                     <label htmlFor="">Brightness</label>
-                </div>
+                </div> 
 
                 {/* Contrast */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setContrast(e.target.value) }} value={contrast} max={3} step={0.1} />
+                    <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setContrast(e.target.value) }}
+                        value={contrast} 
+                        max={3} 
+                        step={0.1}
+                    />
                     <label htmlFor="">Contrast</label>
                 </div>
 
                 {/* saturate */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setSaturate(e.target.value) }} value={saturate} max={3} step={0.1} />
+                    <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setSaturate(e.target.value) }}
+                        value={saturate} 
+                        max={3} 
+                        step={0.1}
+                    />
+                    {/* <input type="range" onChange={(e) => { setSaturate(e.target.value) }} value={saturate} max={3} step={0.1} /> */}
                     <label htmlFor="">saturate</label>
                 </div>
 
                 {/* blur */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setBlur(e.target.value) }} value={blur} max={10} step={0.1} />
+                    <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setBlur(e.target.value) }}
+                        value={blur} 
+                        max={3} 
+                        step={0.1}
+                    />
+                    {/* <input type="range" onChange={(e) => { setBlur(e.target.value) }} value={blur} max={10} step={0.1} /> */}
                     <label htmlFor="">Blur</label>
                 </div>
 
                 {/* Grayscale */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setGrayscale(e.target.value) }} value={grayscale} max={1} step={0.1} />
+                    <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setGrayscale(e.target.value) }}
+                        value={grayscale} 
+                        max={3} 
+                        step={0.1}
+                    />
+                    {/* <input type="range" onChange={(e) => { setGrayscale(e.target.value) }} value={grayscale} max={1} step={0.1} /> */}
                     <label htmlFor="">Grayscale</label>
                 </div>
 
                 {/* hue rotate */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setHuerotate(e.target.value) }} value={hueRotate} max={360} step={1} />
+                  <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setHuerotate(e.target.value) }}
+                        value={hueRotate} 
+                        max={360} 
+                        step={1}
+                    />
+                    {/* <input type="range" onChange={(e) => { setHuerotate(e.target.value) }} value={hueRotate} max={360} step={1} /> */}
                     <label htmlFor="">hueRotate</label>
                 </div>
 
                 {/* sepia */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setSepia(e.target.value) }} value={sepia} max={1} step={0.1} />
+                  <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setSepia(e.target.value) }}
+                        value={sepia} 
+                        max={3} 
+                        step={0.1}
+                    />
+                    {/* <input type="range" onChange={(e) => { setSepia(e.target.value) }} value={sepia} max={1} step={0.1} /> */}
                     <label htmlFor="">sepia</label>
                 </div>
 
                 {/* invert */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setInvert(e.target.value) }} value={invert} max={1} step={0.1} />
+                  <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setInvert(e.target.value) }}
+                        value={invert} 
+                        max={3} 
+                        step={0.1}
+                    />
+                    {/* <input type="range" onChange={(e) => { setInvert(e.target.value) }} value={invert} max={1} step={0.1} /> */}
                     <label htmlFor="">invert</label>
                 </div>
 
 
                 {/* Opacite */}
                 <div className="part"  >
-                    <input type="range" onChange={(e) => { setOpacity(e.target.value) }} value={opacity} max={1} step={0.1} />
+                  <Slider
+                        size="small"
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={(e) => { setOpacity(e.target.value) }}
+                        value={opacity} 
+                        max={1} 
+                        step={0.1}
+                    />
+                    {/* <input type="range" onChange={(e) => { setOpacity(e.target.value) }} value={opacity} max={1} step={0.1} /> */}
                     <label htmlFor="">Opacite</label>
                 </div>
 
@@ -202,4 +283,10 @@ export default function Control(Props) {
             </form>
         </div>
     )
+
+
+  // Rest of your component code...
+
+
+
 }
