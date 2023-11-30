@@ -16,6 +16,44 @@ body {
   overflow-x: hidden;
 }
 
+.One {
+  --s: 200px; /* control the size */
+  --c1: #1d1d1d;
+  --c2: #4e4f51;
+  --c3: #3c3c3c;
+
+  background: repeating-conic-gradient(
+        from 30deg,
+        #0000 0 120deg,
+        var(--c3) 0 180deg
+      )
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--c1) 0 60deg,
+      var(--c2) 0 120deg,
+      var(--c3) 0 180deg
+    );
+  background-size: var(--s) calc(var(--s) * 0.577);
+}
+
+.Two {
+  --color: rgba(114, 114, 114, 0.3);
+  background-color: #191a1a;
+  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
+      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
+  background-size: 55px 55px;
+}
+
+.Three {
+    /* Add your background pattern here */
+    background-color: #313131;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
+    background-size: 30px 30px;
+    background-position: -5px -5px
+}
+
+
 #root {
   display: flex;
   justify-content: center;
@@ -138,8 +176,6 @@ body {
 
 /* massege when you dont have internet ###############################################################################################################*/
 .card {
-  width: 190px;
-  height: 254px;
   transition: all 0.2s;
   position: absolute;
   left: 50%;
@@ -149,6 +185,9 @@ body {
 }
 
 .card-inner {
+  min-width: 190px;
+  min-height: 254px;
+  padding: 20px;
   width: inherit;
   height: inherit;
   background: rgba(255,255,255,.05);
@@ -435,13 +474,13 @@ img:hover {
   -o-transition: 0.5s;
 }
 
-.setting .icon:hover {
+/* .setting .icon:hover {
   transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -o-transform: rotate(90deg);
-}
+} */
 
 .container .boxS {
   background: rgba(255,255,255,.05);

@@ -102,10 +102,32 @@ export default function Control(Props) {
         invert(${invert})
     `;
 
+    const [isFullScreen, setIsFullScreen] = useState(false);
+    
+    useEffect(() => {
+        const handleFullScreenChange = () => {
+        setIsFullScreen(document.fullscreenElement !== null);
+        };
+    
+        document.addEventListener("fullscreenchange", handleFullScreenChange);
+    
+        return () => {
+        document.removeEventListener("fullscreenchange", handleFullScreenChange);
+        };
+    }, []);
+    
+    const handleToggleFullScreen = () => {
+        if (!isFullScreen) {
+        document.documentElement.requestFullscreen();
+        } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+        }
+    };
+
 
     document.body.style.overflow = "hidden"
-    // document.querySelector(".setting").style.filter = "blur(6px)"
-    // document.querySelector(".setting").style.pointerEvents = "none"
 
     return (
         <div className="panle flex p-2 justify-center items-center mt-auto" style={{ width: Fullw ? "100%" : "auto", height: Fullw ? "100%" : "auto" }}>
@@ -113,13 +135,16 @@ export default function Control(Props) {
                 <button className="close w-9 h-9 cursor-pointer text-white flex justify-center items-center p-0" onClick={() => {
                     Props.close(false)
                     document.body.style.overflow = "auto"
+                    document.fullscreenElement == null ? null : handleToggleFullScreen()
                 }}><FontAwesomeIcon icon={faXmark} style={{color: "#ffffff",}} /></button>
                 <button className="waed w-9 h-9 cursor-pointer text-white flex justify-center items-center p-0" 
-                onClick={() => {
-                    setFullw(Fullw ? false : true)
-                }}
-                >{Fullw ? <FontAwesomeIcon icon={faCompress} style={{ color: "#ffffff", }} /> : <FontAwesomeIcon icon={faExpand} style={{ color: "#ffffff", }} />}</button>
+                    onClick={() => {
+                        setFullw(Fullw ? false : true),
+                        handleToggleFullScreen()
+                    }}
+                >{isFullScreen ? <FontAwesomeIcon icon={faCompress} style={{ color: "#ffffff", }} /> : <FontAwesomeIcon icon={faExpand} style={{ color: "#ffffff", }} />}</button>
             </div>
+
             <div className="bord">
                 <div className="loader" style={{ display: waitImag ? "block" : "none" }}></div>
                 <img src={getU} id="Im" alt="" style={{ filter: values }} />

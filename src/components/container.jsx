@@ -10,6 +10,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css"
 import Masonry from "react-responsive-masonry"
+import "react-image-gallery/styles/css/image-gallery.css";
+import "../ImageG.css"
 
 function Container() {
     const Acces = "kwoGX8fZRJ3jT0fIXiGQApZDXret2VF3gRsaMZokv0g"
@@ -28,10 +30,11 @@ function Container() {
         inputRef.current.focus();
     }, []);
 
+
     const fetchData = async (parm) => {
         setIsDownloading(true)
         try {
-            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=30content_filter=low&client_id=${Acces}`);
+            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=20content_filter=low&client_id=${Acces}`);
             const result = await Promise.all([response1]);
             const [data1] = result.map(res => res.data.results);
     
@@ -45,7 +48,6 @@ function Container() {
         setIsDownloading(false)
         setShow(true)
     } 
-
 
     return (
         <>
@@ -78,7 +80,7 @@ function Container() {
                     </div>
                 </form>
 
-                {show ? (      
+                {show ? ( 
                     <Masonry columnsCount={3} gutter={20} className="mb-6">
                         {dataImg.map(mg => 
                             <LazyLoadImage 
@@ -94,7 +96,7 @@ function Container() {
                             />    
                         )}
                     </Masonry>
-                ) : null}
+                    ) : null}
             </div>
         
 

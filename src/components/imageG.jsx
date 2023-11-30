@@ -1,6 +1,5 @@
-
-import {useEffect , useState} from 'react';
-import axios from "axios"
+import { useState , useEffect } from "react";
+import axios from "axios";
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import "../ImageG.css"
@@ -11,8 +10,8 @@ const ImageG = () => {
     const [imageList , setimageList] = useState([])
 
     const images = [
-        // Add more image objects here
-    ];
+
+    ]
 
     const fetchItems = async () => {
         try {
@@ -32,18 +31,17 @@ const ImageG = () => {
         console.log(error);
         }
     }
-
     useEffect(() => {
         fetchItems();
     }, []);
 
-
-
   return (
-    <div className='imageG-cover'>
-      <ImageGallery items={imageList}  showPlayButton={true} showThumbnails={true} />
-    </div>
+    <div className="container">
+      <div className='imageG-cover'>
+        <ImageGallery items={imageList}  showPlayButton={true} showThumbnails={true} />
+      </div>
+    </div>  
   );
 };
 
-export default ImageG;
+export default ImageG; 
