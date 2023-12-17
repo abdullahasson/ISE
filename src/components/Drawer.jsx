@@ -1,15 +1,15 @@
+/* eslint-disable react/no-unknown-property */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import Title from './title';
+import { Link } from 'react-router-dom';
 import "../Drawer.css"
 import Divider from '@mui/material/Divider';
-
-
-// font Awsome Icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { faGear , faRotateRight , faSliders , faHome , faMessage , faXmark } from '@fortawesome/free-solid-svg-icons';
 
-export default function Drawe() {  
+export default function Drawe(Props) {  
   const [state, setState] = React.useState({
       right: false,
   });
@@ -27,10 +27,20 @@ export default function Drawe() {
           document.body.classList.add("Two"):
             mainValue == "three" ? 
             document.body.classList.add("Three"):
-                console.log("finish")
+              null
   }
-
   handleFromLocalStorage()
+
+
+  const [goUp , setGoup] = React.useState(false)
+  window.addEventListener("scroll" , function() {
+    if (window.pageYOffset >= 600) {
+      setGoup(true)
+    } else {
+      setGoup(false)
+    }
+})
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -61,8 +71,10 @@ export default function Drawe() {
   const list = (anchor) => (
     <Box sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 450 }} role="presentation" onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)} className="setting">
       <div className="dahh">
-        <div className="title">
-          <h1>Settings</h1>
+        <div className="title relative">
+          <button className="absolute bg-[#2e2d2d] w-[20px] h-[20px] rounded-[100vmax] p-[8px] text-white flex justify-center items-center hover:bg-[#e28383] transition-colors top-[50%] right-[10px] translate-y-[-50%]"><FontAwesomeIcon icon={faXmark}/></button>
+  
+          <Title colorLetter="Settings" />
         </div>
         <Divider />
         <div className="branches">
@@ -104,6 +116,15 @@ export default function Drawe() {
                     onChange={handleOptionChange}
                   />
                   <span className="radio-tile three">
+                  </span>
+                </label>
+                <label>
+                  <span className="radio-tile text-white last" onClick={() => {
+                      window.localStorage.removeItem("bodyPattern")
+                      setSelectedOption("")
+                  }}>
+                    <FontAwesomeIcon icon={faRotateRight} className="text-white" />
+                    default
                   </span>
                 </label>
             </div>
@@ -228,6 +249,15 @@ export default function Drawe() {
           </div>
         </div>
         <Divider />
+        <div>
+          <button className='reset-b' onClick={() => {
+            window.localStorage.clear()
+            setSelectedOption("")
+            setSelectedOptionTwo("")
+            setSelectedOptionThree("")
+          }}><span>Reset <FontAwesomeIcon icon={faRotateRight} /></span></button> 
+        </div>
+        <Divider />
       </div>
     </Box>
   );
@@ -237,10 +267,34 @@ export default function Drawe() {
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
 
-            <div className="setting fixed top-1" onClick={toggleDrawer(anchor, true)}>
-                <div className="icon text-white">
-                    <FontAwesomeIcon icon={faGear} style={{"--fa-primary-color": "#ffffff", "--fa-secondary-color": "#ffffff",}} /> 
-                </div>
+            <div className="mainMune">
+              <div 
+                tooltip="Setting" 
+                className="setting-b chooes" 
+                onClick={toggleDrawer(anchor, true)}
+                >
+                    <div className="icon text-white">
+                        <FontAwesomeIcon icon={faGear} style={{"--fa-primary-color": "#ffffff", "--fa-secondary-color": "#ffffff",}} /> 
+                    </div>
+              </div>
+
+              { Props.derContact ?
+                <Link to={Props.derContact} className="chooes" tooltip={Props.derContact != "/ISE/" ? "Contact" : "Home"}>
+                  {Props.derContact == "/ISE/" ? <FontAwesomeIcon icon={faHome} /> : <FontAwesomeIcon icon={faMessage} />}
+                </Link> : null 
+              }
+              { Props.datar ? 
+                <Link to={Props.der} className="chooes" tooltip={Props.der != "/ISE/" ? "Slider" : "Home"}>
+                  {Props.der == "/ISE/" ? <FontAwesomeIcon icon={faHome} /> : <FontAwesomeIcon icon={faSliders} />}
+                </Link> : null
+              }
+              { goUp ? 
+                <div className='chooes' tooltip="Up" onClick={() => {
+                  window.scrollTo(0 , 0)
+                }}>
+                  U
+                </div> : null
+              }
             </div>
 
             <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>

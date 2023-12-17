@@ -151,7 +151,6 @@ export default function Control(Props) {
                 <canvas id="canvas"></canvas>
             </div>
 
-
             <form action="" className="flex flex-col gap-0 p-8 relative max-[566px]:w-full" onSubmit={(event) => { event.preventDefault() }}
                 style={{ pointerEvents: waitImag ? "none" : "all"}}
             >
@@ -195,7 +194,6 @@ export default function Control(Props) {
                         max={3} 
                         step={0.1}
                     />
-                    {/* <input type="range" onChange={(e) => { setSaturate(e.target.value) }} value={saturate} max={3} step={0.1} /> */}
                     <label htmlFor="">saturate</label>
                 </div>
 
@@ -210,7 +208,6 @@ export default function Control(Props) {
                         max={3} 
                         step={0.1}
                     />
-                    {/* <input type="range" onChange={(e) => { setBlur(e.target.value) }} value={blur} max={10} step={0.1} /> */}
                     <label htmlFor="">Blur</label>
                 </div>
 
@@ -225,7 +222,6 @@ export default function Control(Props) {
                         max={3} 
                         step={0.1}
                     />
-                    {/* <input type="range" onChange={(e) => { setGrayscale(e.target.value) }} value={grayscale} max={1} step={0.1} /> */}
                     <label htmlFor="">Grayscale</label>
                 </div>
 
@@ -240,7 +236,6 @@ export default function Control(Props) {
                         max={360} 
                         step={1}
                     />
-                    {/* <input type="range" onChange={(e) => { setHuerotate(e.target.value) }} value={hueRotate} max={360} step={1} /> */}
                     <label htmlFor="">hueRotate</label>
                 </div>
 
@@ -255,7 +250,6 @@ export default function Control(Props) {
                         max={3} 
                         step={0.1}
                     />
-                    {/* <input type="range" onChange={(e) => { setSepia(e.target.value) }} value={sepia} max={1} step={0.1} /> */}
                     <label htmlFor="">sepia</label>
                 </div>
 
@@ -270,7 +264,6 @@ export default function Control(Props) {
                         max={3} 
                         step={0.1}
                     />
-                    {/* <input type="range" onChange={(e) => { setInvert(e.target.value) }} value={invert} max={1} step={0.1} /> */}
                     <label htmlFor="">invert</label>
                 </div>
 
@@ -286,7 +279,6 @@ export default function Control(Props) {
                         max={1} 
                         step={0.1}
                     />
-                    {/* <input type="range" onChange={(e) => { setOpacity(e.target.value) }} value={opacity} max={1} step={0.1} /> */}
                     <label htmlFor="">Opacite</label>
                 </div>
 

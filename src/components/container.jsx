@@ -9,9 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css"
-import Masonry from "react-responsive-masonry"
 import "react-image-gallery/styles/css/image-gallery.css";
 import "../ImageG.css"
+import { ImageList } from "@mui/material";
 
 function Container() {
     const Acces = "kwoGX8fZRJ3jT0fIXiGQApZDXret2VF3gRsaMZokv0g"
@@ -24,13 +24,13 @@ function Container() {
     const [errorPoppup , setErrorPoppup] = useState(false)
     const [errorMessage , setErrorMessage] = useState("")
     const [imageurlforpanle , setimageurlforpanle] = useState("")
+    const [isdataready , setisdataready] = useState(false)
 
     const inputRef = useRef(null);
     useEffect(() => {
         inputRef.current.focus();
     }, []);
-
-
+ 
     const fetchData = async (parm) => {
         setIsDownloading(true)
         try {
@@ -40,10 +40,12 @@ function Container() {
     
             setdataImg(data1);
             setErrorPoppup(false)
+            setisdataready(true)
 
         } catch (error) {
             setErrorMessage(error.message)
             setErrorPoppup(true)
+            setisdataready(false)
         }
         setIsDownloading(false)
         setShow(true)
@@ -54,18 +56,23 @@ function Container() {
             {showpanle ? <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} /> : null}
             {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
 
+            <Drawe der="/ISE/ImageG" derContact="/ISE/ContactUs" datar={isdataready}/>
+
             <div className="container flex flex-col items-center justify-between" 
                 style={{pointerEvents: showpanle ? "none" : "all" , filter: showpanle ? "blur(6px)" : "blur(0px)" }}>
         
-                <Drawe />
+                
 
                 <form action="" onSubmit={(e) => {e.preventDefault()}}  className="flex justify-between items-center flex-col gap-10 p-12 w-full">
-                    <Title />
+                    <Title colorLetter="Image Search Engine"/>
 
                     <div className="searchBox">
                         <input className="searchInput" type="text" value={KeyWord} name placeholder="Search something" onChange={(e) => {
                                 setShow(false)
+                                setdataImg([])
                                 setKeyWord(e.target.value)
+                                setisdataready(false)
+                                setErrorPoppup(false)
                             }}  ref={inputRef} style={{pointerEvents : isDownloading ? "none" : "all"}}/>
                         <button className="searchButton" type="submit" style={{pointerEvents : isDownloading ? "none" : "all"}} onClick={() => {
                                 if (KeyWord.length > 0) {
@@ -81,25 +88,26 @@ function Container() {
                 </form>
 
                 {show ? ( 
-                    <Masonry columnsCount={3} gutter={20} className="mb-6">
-                        {dataImg.map(mg => 
+                    <ImageList variant="masonry" cols={3} gap={8}>
+                        {dataImg.map((item) => (
+                            
                             <LazyLoadImage 
                                 effect="blur"
-                                src={mg.urls.thumb}
+                                src={item.urls.regular}
                                 className="w-full"
                                 onClick={
                                     () => {
-                                        setimageurlforpanle(mg.urls.thumb)
+                                        setimageurlforpanle(item.urls.regular)
                                         setshowpanle(true)
                                     }
                                 }
                             />    
-                        )}
-                    </Masonry>
+                            
+                        ))}
+                    </ImageList>
                     ) : null}
             </div>
         
-
             <div id="wifi-loader" style={{display : isDownloading ? "flex" : "none"}}>
                 <svg className="circle-outer" viewBox="0 0 86 86">
                     <circle className="back" cx={43} cy={43} r={40} />
