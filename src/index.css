@@ -118,6 +118,9 @@ body {
   }
 }
 
+.container ul > span {
+  width: 100%;
+}
 
 .title h1 span {
   background: linear-gradient(90deg, #2AF598 0%, #009EFD 100%);
@@ -486,7 +489,7 @@ img:hover {
   -moz-border-radius: 100vmax;
   -ms-border-radius: 100vmax;
   -o-border-radius: 100vmax;
-  z-index: 9999999;
+  z-index: 9;
 }
 
 .drawe {

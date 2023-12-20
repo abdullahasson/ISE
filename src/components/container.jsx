@@ -17,6 +17,8 @@ function Container() {
     const Acces = "kwoGX8fZRJ3jT0fIXiGQApZDXret2VF3gRsaMZokv0g"
 
     const [dataImg , setdataImg] = useState([])
+    const [dataImgtwo , setdataImgtwo] = useState([])
+    const [dataImgthree , setdataImgthree] = useState([])
     const [KeyWord , setKeyWord] = useState("")
     const [show , setShow] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false);
@@ -25,7 +27,8 @@ function Container() {
     const [errorMessage , setErrorMessage] = useState("")
     const [imageurlforpanle , setimageurlforpanle] = useState("")
     const [isdataready , setisdataready] = useState(false)
-
+    const [getqulite , setgetqulite] = useState(window.localStorage.getItem("ImageQuality"))
+    
     const inputRef = useRef(null);
     useEffect(() => {
         inputRef.current.focus();
@@ -38,7 +41,9 @@ function Container() {
             const result = await Promise.all([response1]);
             const [data1] = result.map(res => res.data.results);
     
-            setdataImg(data1);
+            setdataImg(data1.map(res => res.urls.thumb));
+            setdataImgtwo(data1.map(res => res.urls.regular))
+            setdataImgthree(data1.map(res => res.urls.full))
             setErrorPoppup(false)
             setisdataready(true)
 
@@ -47,9 +52,69 @@ function Container() {
             setErrorPoppup(true)
             setisdataready(false)
         }
+        setgetqulite(window.localStorage.getItem("ImageQuality"))
         setIsDownloading(false)
         setShow(true)
     } 
+
+    
+    function handleTheQulite() {
+        if (getqulite == "thumb") {
+            return (
+                dataImg.map((item) => (
+                    <LazyLoadImage 
+                        effect="blur"
+                        src={item}
+                        className="w-full"
+                        onClick={
+                            () => {
+                                setimageurlforpanle(item)
+                                setshowpanle(true)
+                            }
+                        }
+                    />    
+                    
+                ))
+            )
+        } else if (getqulite == "regular") {
+            return (
+                dataImgtwo.map((item) => (
+                    <LazyLoadImage 
+                        effect="blur"
+                        src={item}
+                        className="w-full"
+                        onClick={
+                            () => {
+                                setimageurlforpanle(item)
+                                setshowpanle(true)
+                            }
+                        }
+                    />    
+                    
+                ))
+            )
+        } else if (getqulite == "full") {
+            return (
+                dataImgthree.map((item) => (
+                    <LazyLoadImage 
+                        effect="blur"
+                        src={item}
+                        className="w-full"
+                        onClick={
+                            () => {
+                                setimageurlforpanle(item)
+                                setshowpanle(true)
+                            }
+                        }
+                    />    
+                    
+                ))
+            )
+        } else {
+            setErrorMessage("...")
+            setErrorPoppup(true)
+        }
+    }
 
     return (
         <>
@@ -61,8 +126,6 @@ function Container() {
             <div className="container flex flex-col items-center justify-between" 
                 style={{pointerEvents: showpanle ? "none" : "all" , filter: showpanle ? "blur(6px)" : "blur(0px)" }}>
         
-                
-
                 <form action="" onSubmit={(e) => {e.preventDefault()}}  className="flex justify-between items-center flex-col gap-10 p-12 w-full">
                     <Title colorLetter="Image Search Engine"/>
 
@@ -89,21 +152,7 @@ function Container() {
 
                 {show ? ( 
                     <ImageList variant="masonry" cols={3} gap={8}>
-                        {dataImg.map((item) => (
-                            
-                            <LazyLoadImage 
-                                effect="blur"
-                                src={item.urls.regular}
-                                className="w-full"
-                                onClick={
-                                    () => {
-                                        setimageurlforpanle(item.urls.regular)
-                                        setshowpanle(true)
-                                    }
-                                }
-                            />    
-                            
-                        ))}
+                        {handleTheQulite()}
                     </ImageList>
                     ) : null}
             </div>

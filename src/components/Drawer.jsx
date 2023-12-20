@@ -31,7 +31,6 @@ export default function Drawe(Props) {
   }
   handleFromLocalStorage()
 
-
   const [goUp , setGoup] = React.useState(false)
   window.addEventListener("scroll" , function() {
     if (window.pageYOffset >= 600) {
@@ -53,6 +52,7 @@ export default function Drawe(Props) {
   const [selectedOptionTwo , setSelectedOptionTwo] = React.useState(window.localStorage.getItem("ImageQuality"));
   const [selectedOptionThree , setSelectedOptionThree] = React.useState(window.localStorage.getItem("ShowStyle"));
 
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     window.localStorage.setItem("bodyPattern" , event.target.value)
@@ -72,8 +72,10 @@ export default function Drawe(Props) {
     <Box sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 450 }} role="presentation" onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)} className="setting">
       <div className="dahh">
         <div className="title relative">
-          <button className="absolute bg-[#2e2d2d] w-[20px] h-[20px] rounded-[100vmax] p-[8px] text-white flex justify-center items-center hover:bg-[#e28383] transition-colors top-[50%] right-[10px] translate-y-[-50%]"><FontAwesomeIcon icon={faXmark}/></button>
-  
+        <button 
+          class="translate-y-[-50%] absolute right-3 transition-colors top-[50%] rounded-[100vmax] hover:bg-[#a15151] flex justify-center items-center p-3 w-0 h-0">
+          <FontAwesomeIcon icon={faXmark} className='text-white'/>
+        </button>
           <Title colorLetter="Settings" />
         </div>
         <Divider />
@@ -119,10 +121,15 @@ export default function Drawe(Props) {
                   </span>
                 </label>
                 <label>
-                  <span className="radio-tile text-white last" onClick={() => {
-                      window.localStorage.removeItem("bodyPattern")
-                      setSelectedOption("")
-                  }}>
+                  <input 
+                    className="radio-input" 
+                    type="radio" 
+                    name="Pattern"
+                    value="defult"
+                    checked={selectedOption === 'defult'}
+                    onChange={handleOptionChange}
+                  />
+                  <span className="radio-tile text-white last">
                     <FontAwesomeIcon icon={faRotateRight} className="text-white" />
                     default
                   </span>
@@ -252,8 +259,10 @@ export default function Drawe(Props) {
         <div>
           <button className='reset-b' onClick={() => {
             window.localStorage.clear()
-            setSelectedOption("")
-            setSelectedOptionTwo("")
+            setSelectedOption("defult")
+            window.localStorage.setItem("bodyPattern" , "defult")
+            setSelectedOptionTwo("thumb")
+            window.localStorage.setItem("ImageQuality" , "thumb")
             setSelectedOptionThree("")
           }}><span>Reset <FontAwesomeIcon icon={faRotateRight} /></span></button> 
         </div>
