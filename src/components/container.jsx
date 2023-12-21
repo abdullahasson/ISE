@@ -5,6 +5,7 @@ import axios from 'axios';
 import Control from "./controlpanle"
 import Poppup from "./poppup"
 import Drawe from "./Drawer";
+import Searshload from "./SearshLoad";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -27,7 +28,7 @@ function Container() {
     const [errorMessage , setErrorMessage] = useState("")
     const [imageurlforpanle , setimageurlforpanle] = useState("")
     const [isdataready , setisdataready] = useState(false)
-    const [getqulite , setgetqulite] = useState(window.localStorage.getItem("ImageQuality"))
+    const [getqulite , setgetqulite] = useState(window.localStorage.getItem("ImageQuality") ? window.localStorage.getItem("ImageQuality") : window.localStorage.setItem("ImageQuality" , "regular"))
     
     const inputRef = useRef(null);
     useEffect(() => {
@@ -60,7 +61,7 @@ function Container() {
     
     function handleTheQulite() {
         if (getqulite == "thumb") {
-            return (
+            return(
                 dataImg.map((item) => (
                     <LazyLoadImage 
                         effect="blur"
@@ -77,7 +78,7 @@ function Container() {
                 ))
             )
         } else if (getqulite == "regular") {
-            return (
+            return(
                 dataImgtwo.map((item) => (
                     <LazyLoadImage 
                         effect="blur"
@@ -94,7 +95,7 @@ function Container() {
                 ))
             )
         } else if (getqulite == "full") {
-            return (
+            return(
                 dataImgthree.map((item) => (
                     <LazyLoadImage 
                         effect="blur"
@@ -110,7 +111,7 @@ function Container() {
                     
                 ))
             )
-        } else {
+        } else if (getqulite) {
             setErrorMessage("...")
             setErrorPoppup(true)
         }
@@ -120,7 +121,6 @@ function Container() {
         <>
             {showpanle ? <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} /> : null}
             {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
-
             <Drawe der="/ISE/ImageG" derContact="/ISE/ContactUs" datar={isdataready}/>
 
             <div className="container flex flex-col items-center justify-between" 
@@ -154,25 +154,10 @@ function Container() {
                     <ImageList variant="masonry" cols={3} gap={8}>
                         {handleTheQulite()}
                     </ImageList>
-                    ) : null}
+                ) : null}
             </div>
         
-            <div id="wifi-loader" style={{display : isDownloading ? "flex" : "none"}}>
-                <svg className="circle-outer" viewBox="0 0 86 86">
-                    <circle className="back" cx={43} cy={43} r={40} />
-                    <circle className="front" cx={43} cy={43} r={40} />
-                    <circle className="new" cx={43} cy={43} r={40} />
-                </svg>
-                <svg className="circle-middle" viewBox="0 0 60 60">
-                    <circle className="back" cx={30} cy={30} r={27} />
-                    <circle className="front" cx={30} cy={30} r={27} />
-                </svg>
-                <svg className="circle-inner" viewBox="0 0 34 34">
-                    <circle className="back" cx={17} cy={17} r={14} />
-                    <circle className="front" cx={17} cy={17} r={14} />
-                </svg>
-                <div className="text" data-text="Searching" />
-            </div>
+            {isDownloading && <Searshload />}
         </>
     )
 }

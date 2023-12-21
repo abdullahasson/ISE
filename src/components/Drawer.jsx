@@ -261,8 +261,8 @@ export default function Drawe(Props) {
             window.localStorage.clear()
             setSelectedOption("defult")
             window.localStorage.setItem("bodyPattern" , "defult")
-            setSelectedOptionTwo("thumb")
-            window.localStorage.setItem("ImageQuality" , "thumb")
+            setSelectedOptionTwo("regular")
+            window.localStorage.setItem("ImageQuality" , "regular")
             setSelectedOptionThree("")
           }}><span>Reset <FontAwesomeIcon icon={faRotateRight} /></span></button> 
         </div>
