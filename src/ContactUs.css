@@ -43,6 +43,7 @@
     height: 18px;
     fill: white;
     transition: all 0.3s;
+    transform: rotate(45deg);
 }
 
 .contactS .svg-wrapper {
@@ -62,6 +63,10 @@
 }
 
 .contactS:hover svg {
-    transform: rotate(45deg);
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
 }
 

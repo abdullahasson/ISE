@@ -15,8 +15,10 @@ export default function Drawe(Props) {
   });
 
   function handleFromLocalStorage() {
-    const mainValue = window.localStorage.getItem("bodyPattern")
-
+    const mainValue = window.localStorage.getItem("bodyPattern") ? 
+    window.localStorage.getItem("bodyPattern") : 
+    window.localStorage.setItem("bodyPattern" , "defult")
+    
     document.body.classList.forEach(className => {
       document.body.classList.remove(className)
     })
@@ -61,6 +63,7 @@ export default function Drawe(Props) {
   const handleOptionTwoChange = (event) => {
     setSelectedOptionTwo(event.target.value);
     window.localStorage.setItem("ImageQuality" , event.target.value)
+    Props.changetheqr(false)
   };
 
   const handleOptionThreeChange = (event) => {

@@ -41,8 +41,6 @@ export default function Control(Props) {
         getimage()
     }, [])
 
-
-
     // Download Section 
     useEffect(() => {
         const canvas = document.getElementById("canvas");
@@ -125,7 +123,6 @@ export default function Control(Props) {
         }
         }
     };
-
 
     document.body.style.overflow = "hidden"
 
@@ -300,10 +297,4 @@ export default function Control(Props) {
             </form>
         </div>
     )
-
-
-  // Rest of your component code...
-
-
-
 }

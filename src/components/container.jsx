@@ -29,7 +29,7 @@ function Container() {
     const [imageurlforpanle , setimageurlforpanle] = useState("")
     const [isdataready , setisdataready] = useState(false)
     const [getqulite , setgetqulite] = useState(window.localStorage.getItem("ImageQuality") ? window.localStorage.getItem("ImageQuality") : window.localStorage.setItem("ImageQuality" , "regular"))
-    
+
     const inputRef = useRef(null);
     useEffect(() => {
         inputRef.current.focus();
@@ -121,7 +121,7 @@ function Container() {
         <>
             {showpanle ? <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} /> : null}
             {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
-            <Drawe der="/ISE/ImageG" derContact="/ISE/ContactUs" datar={isdataready}/>
+            <Drawe der="/ISE/ImageG" derContact="/ISE/ContactUs" datar={isdataready} changetheqr={show => setShow(show)}/>
 
             <div className="container flex flex-col items-center justify-between" 
                 style={{pointerEvents: showpanle ? "none" : "all" , filter: showpanle ? "blur(6px)" : "blur(0px)" }}>

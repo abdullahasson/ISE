@@ -66,7 +66,7 @@ body {
 
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
 }
 
 ::-webkit-scrollbar-track {
@@ -273,11 +273,6 @@ img:hover {
     margin-bottom: 20px;
   }  
 }
-
-/* Loader when you click on searsh button ###############################################################################################################*/
-
-
-
 
 /* Setting page @@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 .mainMune {
