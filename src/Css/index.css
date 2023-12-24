@@ -159,14 +159,14 @@ body {
   display: inline-block;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
 }
-/*hover effect ###############################################################################################################*/
+
 .searchButton:hover  {
   color: #fff;
   background-color: #1A1A1A;
   box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
   transform: translateY(-3px);
 }
-/*button pressing effect ###############################################################################################################*/
+
 .searchButton:active {
   box-shadow: none;
   transform: translateY(0);
@@ -179,55 +179,6 @@ body {
   color: white;
   font-size: 15px;
   padding: 24px 46px 24px 26px;
-}
-
-/* massege when you dont have internet ###############################################################################################################*/
-.card {
-  transition: all 0.2s;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform:translate(-50% , -50%);
-  cursor: pointer; 
-}
-
-.card-inner {
-  min-width: 190px;
-  min-height: 254px;
-  padding: 20px;
-  width: inherit;
-  height: inherit;
-  background: rgba(255,255,255,.05);
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
-  backdrop-filter: blur(10px);
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-
-.timer {
-  transition: 3s;
-  -webkit-transition: 3s;
-  -moz-transition: 3s;
-  -ms-transition: 3s;
-  -o-transition: 3s;
-}
-
-@media (max-width: 360px) {
-  .card {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.active .timer.l {
-  left:100%
-}
-
-.active .timer.r {
-  left: -100%
 }
 
 /* image ###############################################################################################################*/
@@ -243,35 +194,16 @@ img {
   -ms-transition: 0.4s;
   -o-transition: 0.4s;
   box-sizing: border-box;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 img:hover {
   border: 1.2px solid #ffffff;
   filter: contrast(0.5);
-}
-
-/* content of photo ###############################################################################################################*/
-
-.content {
-  padding-bottom: 20px;
-  grid-column-gap: 24px;
-  grid-row-gap: 24px;
-  align-items: start;
-  display: grid;
-  grid-template-columns: repeat(3 ,minmax(0,1fr));
-}
-
-@media (max-width: 767px) {
-  .content {
-    grid-template-columns: repeat(1 ,minmax(0,1fr));
-    gap: 0;
-  }
-}
-
-@media (max-width: 360px) {
-  .content > div > div {
-    margin-bottom: 20px;
-  }  
 }
 
 /* Setting page @@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
@@ -406,49 +338,4 @@ img:hover {
   border: 10px solid ;
   border-color: transparent transparent transparent #191a1a;
   display: none;
-}
-/* ################################################################################ */
-
-.container .boxS {
-  background: rgba(255,255,255,.05);
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
-  backdrop-filter: blur(-3px);
-  width: calc(50% - 10px);
-  height: calc(50% - 10px);
-  border: 1px solid white;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  padding: 12px;
-}
-
-.container .boxS h1 {
-  font-size: 25px;
-  font-weight: 600;
-}
-
-@media (max-width: 560px) {
-  .respo-c {
-    height: calc(100vh + 200px);
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    align-content: space-between;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    gap: 20px;
-  }
-
-  .container .boxS {
-    height: 100%;
-  }
-}
-
-@media (max-width: 355px) {
-  .container .boxS {
-    width: 100%;
-    margin-bottom: 20px;
-  }
 }

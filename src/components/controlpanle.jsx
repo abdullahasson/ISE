@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../panle.css"
+import "../Css/panle.css"
 import Btnload from "./btnload";
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

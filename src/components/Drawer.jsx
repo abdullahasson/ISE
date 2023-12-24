@@ -4,10 +4,10 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Title from './title';
 import { Link } from 'react-router-dom';
-import "../Drawer.css"
+import "../Css/Drawer.css"
 import Divider from '@mui/material/Divider';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear , faRotateRight , faSliders , faHome , faMessage , faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faGear , faRotateRight , faSliders , faHome , faMessage , faXmark , faChevronUp , faImage } from '@fortawesome/free-solid-svg-icons';
 
 export default function Drawe(Props) {  
   const [state, setState] = React.useState({
@@ -157,6 +157,8 @@ export default function Drawe(Props) {
                     onChange={handleOptionTwoChange}
                   />
                   <span className="radio-tile">
+                    <FontAwesomeIcon icon={faImage} className="text-[22px]" />
+                    <div className="p-[1px] w-[25%] bg-white mt-1"></div>
                   </span>
                 </label>
                 <label>
@@ -169,6 +171,8 @@ export default function Drawe(Props) {
                     onChange={handleOptionTwoChange}
                   />
                   <span className="radio-tile">
+                    <FontAwesomeIcon icon={faImage} className="text-[22px]" />
+                    <div className="p-[1px] w-[50%] bg-white mt-1"></div>
                   </span>
                 </label>
                 <label>
@@ -181,6 +185,8 @@ export default function Drawe(Props) {
                     onChange={handleOptionTwoChange}
                   />
                   <span className="radio-tile">
+                    <FontAwesomeIcon icon={faImage} className="text-[22px]" />
+                    <div className="p-[1px] w-[75%] bg-white mt-1"></div>
                   </span>
                 </label>
             </div>
@@ -304,7 +310,7 @@ export default function Drawe(Props) {
                 <div className='chooes' tooltip="Up" onClick={() => {
                   window.scrollTo(0 , 0)
                 }}>
-                  U
+                  <FontAwesomeIcon icon={faChevronUp} />
                 </div> : null
               }
             </div>

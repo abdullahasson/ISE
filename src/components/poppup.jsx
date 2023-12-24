@@ -1,3 +1,5 @@
+import "../Css/poppup.css"
+
 function Poppup(Props) {
     return(
         <div className="card">

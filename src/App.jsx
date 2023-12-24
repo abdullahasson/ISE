@@ -2,7 +2,6 @@ import {BrowserRouter as Router , Routes , Route} from "react-router-dom"
 import Container from "./components/container"
 import ImageG from "./components/imageG";
 import ContactUs from "./components/ContactUs";
-
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 

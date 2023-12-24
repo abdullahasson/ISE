@@ -10,8 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css"
-import "react-image-gallery/styles/css/image-gallery.css";
-import "../ImageG.css"
 import { ImageList } from "@mui/material";
 
 function Container() {
@@ -34,7 +32,7 @@ function Container() {
     useEffect(() => {
         inputRef.current.focus();
     }, []);
- 
+
     const fetchData = async (parm) => {
         setIsDownloading(true)
         try {
@@ -58,7 +56,6 @@ function Container() {
         setShow(true)
     } 
 
-    
     function handleTheQulite() {
         if (getqulite == "thumb") {
             return(
@@ -119,10 +116,9 @@ function Container() {
 
     return (
         <>
-            {showpanle ? <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} /> : null}
-            {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
+            {showpanle && <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} />}
+            {errorPoppup && <Poppup messageProblem={errorMessage} />}
             <Drawe der="/ISE/ImageG" derContact="/ISE/ContactUs" datar={isdataready} changetheqr={show => setShow(show)}/>
-
             <div className="container flex flex-col items-center justify-between" 
                 style={{pointerEvents: showpanle ? "none" : "all" , filter: showpanle ? "blur(6px)" : "blur(0px)" }}>
         
@@ -156,10 +152,9 @@ function Container() {
                     </ImageList>
                 ) : null}
             </div>
-        
             {isDownloading && <Searshload />}
         </>
-    )
+    )                
 }
 
 export default Container;

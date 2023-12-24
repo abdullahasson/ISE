@@ -4,7 +4,7 @@ import Title from "./title";
 import { useRef , useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { TextField } from "@mui/material";
-import "../ContactUs.css"
+import "../Css/ContactUs.css"
 
 export default function ContactUs() {
     const form = useRef();
@@ -18,6 +18,7 @@ export default function ContactUs() {
         .then((result) => {
             setErrorMessage(result.text)
             setErrorPoppup(true)
+            window.location.reload();
         }, (error) => {
             setErrorMessage(error.text)
             setErrorPoppup(true)
@@ -78,15 +79,7 @@ export default function ContactUs() {
                                 maxRows="8"
                                 />
                         </div>
-                        {/* <input 
-                            type="submit" 
-                            value="Send" 
-                            className="p-2 rounded-md bg-[#444] cursor-pointer hover:bg-[#333] transition-colors"
-                        /> */}
-
-
-
-
+                        
                         <button
                             type="submit"
                             value="Send"
