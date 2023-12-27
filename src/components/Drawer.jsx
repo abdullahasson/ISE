@@ -3,11 +3,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Title from './title';
-import { Link } from 'react-router-dom';
 import "../Css/Drawer.css"
 import Divider from '@mui/material/Divider';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear , faRotateRight , faSliders , faHome , faMessage , faXmark , faChevronUp , faImage } from '@fortawesome/free-solid-svg-icons';
+import { faGear , faRotateRight , faSliders , faMessage , faXmark , faChevronUp , faImage } from '@fortawesome/free-solid-svg-icons';
 
 export default function Drawe(Props) {  
   const [state, setState] = React.useState({
@@ -296,22 +295,26 @@ export default function Drawe(Props) {
                     </div>
               </div>
 
-              { Props.derContact ?
-                <Link to={Props.derContact} className="chooes" tooltip={Props.derContact != "/ISE/" ? "Contact" : "Home"}>
-                  {Props.derContact == "/ISE/" ? <FontAwesomeIcon icon={faHome} /> : <FontAwesomeIcon icon={faMessage} />}
-                </Link> : null 
+           
+              <div className="chooes" tooltip="Contact" onClick={() => {
+                Props.derContact(true)
+              }}>
+                <FontAwesomeIcon icon={faMessage} />
+              </div>
+              
+              { Props.datar && 
+                <div className='chooes' tooltip="Slider" onClick={() => {
+                  Props.der(true)
+                }}>
+                  <FontAwesomeIcon icon={faSliders}/>
+                </div>
               }
-              { Props.datar ? 
-                <Link to={Props.der} className="chooes" tooltip={Props.der != "/ISE/" ? "Slider" : "Home"}>
-                  {Props.der == "/ISE/" ? <FontAwesomeIcon icon={faHome} /> : <FontAwesomeIcon icon={faSliders} />}
-                </Link> : null
-              }
-              { goUp ? 
+              { goUp &&
                 <div className='chooes' tooltip="Up" onClick={() => {
                   window.scrollTo(0 , 0)
                 }}>
                   <FontAwesomeIcon icon={faChevronUp} />
-                </div> : null
+                </div>
               }
             </div>
 

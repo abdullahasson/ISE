@@ -6,11 +6,16 @@ import Control from "./controlpanle"
 import Poppup from "./poppup"
 import Drawe from "./Drawer";
 import Searshload from "./SearshLoad";
+import ImageG from "./imageG";
+import ContactUs from "./ContactUs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css"
 import { ImageList } from "@mui/material";
+import { useMediaQuery } from '@mui/material';
+
+
 
 function Container() {
     const Acces = "kwoGX8fZRJ3jT0fIXiGQApZDXret2VF3gRsaMZokv0g"
@@ -26,6 +31,8 @@ function Container() {
     const [errorMessage , setErrorMessage] = useState("")
     const [imageurlforpanle , setimageurlforpanle] = useState("")
     const [isdataready , setisdataready] = useState(false)
+    const [redytoshowslider , setredytoshowslider] = useState(false)
+    const [contactnow , setcontactnow] = useState(false)
     const [getqulite , setgetqulite] = useState(window.localStorage.getItem("ImageQuality") ? window.localStorage.getItem("ImageQuality") : window.localStorage.setItem("ImageQuality" , "regular"))
 
     const inputRef = useRef(null);
@@ -114,24 +121,38 @@ function Container() {
         }
     }
 
+    function handleInputchange(e) {
+        setKeyWord(e.target.value)
+        setisdataready(false)
+        setErrorPoppup(false)
+        setIsDownloading(false)
+        setShow(false)
+        setdataImg([])
+    }
+
+    const handlStyle = {
+        pointerEvents: showpanle || redytoshowslider || contactnow ? "none" : "all" , 
+        filter: showpanle || redytoshowslider || contactnow ? "blur(9px)" : "blur(0px)",
+    }
+
+
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     return (
         <>
             {showpanle && <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} />}
             {errorPoppup && <Poppup messageProblem={errorMessage} />}
-            <Drawe der="/ISE/ImageG" derContact="/ISE/ContactUs" datar={isdataready} changetheqr={show => setShow(show)}/>
-            <div className="container flex flex-col items-center justify-between" 
-                style={{pointerEvents: showpanle ? "none" : "all" , filter: showpanle ? "blur(6px)" : "blur(0px)" }}>
+            <Drawe der={redytoshowslider => setredytoshowslider(redytoshowslider)} derContact={contactnow => setcontactnow(contactnow)} datar={isdataready} changetheqr={show => setShow(show)}/>
+            {redytoshowslider && <ImageG getdatatoslid={handleTheQulite()}/>}
+            {contactnow && <ContactUs />}
+
+            <div className="progress"></div>
+            <div className="container flex flex-col items-center justify-between" style={handlStyle}>
         
                 <form action="" onSubmit={(e) => {e.preventDefault()}}  className="flex justify-between items-center flex-col gap-10 p-12 w-full">
                     <Title colorLetter="Image Search Engine"/>
-
                     <div className="searchBox">
                         <input className="searchInput" type="text" value={KeyWord} name placeholder="Search something" onChange={(e) => {
-                                setShow(false)
-                                setdataImg([])
-                                setKeyWord(e.target.value)
-                                setisdataready(false)
-                                setErrorPoppup(false)
+                                handleInputchange(e)
                             }}  ref={inputRef} style={{pointerEvents : isDownloading ? "none" : "all"}}/>
                         <button className="searchButton" type="submit" style={{pointerEvents : isDownloading ? "none" : "all"}} onClick={() => {
                                 if (KeyWord.length > 0) {
@@ -147,7 +168,7 @@ function Container() {
                 </form>
 
                 {show ? ( 
-                    <ImageList variant="masonry" cols={3} gap={8}>
+                    <ImageList variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
                         {handleTheQulite()}
                     </ImageList>
                 ) : null}

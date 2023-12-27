@@ -118,6 +118,28 @@ body {
   }
 }
 
+
+.progress {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #009EFD;
+  border-radius: 0 2px 2px 0;
+  z-index: 1000000;
+  scale: 0 1;
+  animation: scrollanimate linear;
+  -webkit-animation: scrollanimate linear;
+  animation-timeline: scroll(y);
+  transform-origin: left;
+}
+
+@keyframes scrollanimate {
+  to {
+    scale: 1 1;
+  }
+}
+
 .container ul > span {
   width: 100%;
 }
@@ -182,7 +204,7 @@ body {
 }
 
 /* image ###############################################################################################################*/
-img {
+.container img {
   background: rgba(255,255,255,.05);
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
   backdrop-filter: blur(10px);
@@ -201,10 +223,29 @@ img {
   -o-border-radius: 5px;
 }
 
-img:hover {
+container img:hover {
   border: 1.2px solid #ffffff;
   filter: contrast(0.5);
 }
+
+/* @media (prefers-reduced-motion: no-preference) { 
+   img {
+    scale: 0.8;
+    opacity: 0;
+    animation: fad-in linear;
+    -webkit-animation: fad-in linear;
+    animation-range-start: entry;  /contain - cover - entry - exit - entry-crossing - exit-crossing - normal/
+    animation-range-end: entry;
+    animation-timeline: view();
+  }
+  
+  @keyframes fad-in {
+    to {
+      scale: 1;
+      opacity: 1;
+    }
+  } 
+} */ 
 
 /* Setting page @@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 .mainMune {

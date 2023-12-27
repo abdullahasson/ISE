@@ -37,3 +37,12 @@
 .image-gallery-fullscreen-button {
     position: fixed;
 }
+
+img {
+    cursor: auto !important;
+}
+
+img:hover {
+    filter: contrast(1) !important;
+    -webkit-filter: contrast(1) !important;
+}
