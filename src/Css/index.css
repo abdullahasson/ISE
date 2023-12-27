@@ -204,7 +204,7 @@ body {
 }
 
 /* image ###############################################################################################################*/
-.container img {
+img {
   background: rgba(255,255,255,.05);
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
   backdrop-filter: blur(10px);
@@ -223,7 +223,7 @@ body {
   -o-border-radius: 5px;
 }
 
-container img:hover {
+img:hover {
   border: 1.2px solid #ffffff;
   filter: contrast(0.5);
 }

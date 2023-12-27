@@ -15,7 +15,7 @@ const ImageG = (Props) => {
     <>
       <div className="w-[97.50%] h-[96.50%] absolute left-[50%] top-[50%] bg-[#3a3939] rounded-[10px] translate-x-[-50%] translate-y-[-50%] z-50">
         <div className='imageG-cover relative'>
-          <div className="cursor-pointer absolute left-[-0.28rem] top-[-0.28rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0">
+          <div className="cursor-pointer absolute left-[-0.28rem] top-[-0.28rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {Props.finish(false)}}>
             <FontAwesomeIcon icon={faXmark} />
           </div>
           <ImageGallery 

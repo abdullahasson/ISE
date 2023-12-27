@@ -132,7 +132,7 @@ function Container() {
 
     const handlStyle = {
         pointerEvents: showpanle || redytoshowslider || contactnow ? "none" : "all" , 
-        filter: showpanle || redytoshowslider || contactnow ? "blur(9px)" : "blur(0px)",
+        filter: showpanle || redytoshowslider || contactnow  ? "blur(9px)" : "blur(0px)",
     }
 
 
@@ -142,8 +142,8 @@ function Container() {
             {showpanle && <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} />}
             {errorPoppup && <Poppup messageProblem={errorMessage} />}
             <Drawe der={redytoshowslider => setredytoshowslider(redytoshowslider)} derContact={contactnow => setcontactnow(contactnow)} datar={isdataready} changetheqr={show => setShow(show)}/>
-            {redytoshowslider && <ImageG getdatatoslid={handleTheQulite()}/>}
-            {contactnow && <ContactUs />}
+            {redytoshowslider && <ImageG getdatatoslid={handleTheQulite()} finish={redytoshowslider => setredytoshowslider(redytoshowslider)}/>}
+            {contactnow && <ContactUs finish={contactnow => setcontactnow(contactnow)}/>}
 
             <div className="progress"></div>
             <div className="container flex flex-col items-center justify-between" style={handlStyle}>

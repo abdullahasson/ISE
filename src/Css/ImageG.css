@@ -40,9 +40,32 @@
 
 img {
     cursor: auto !important;
+    background: transparent !important;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    backdrop-filter: none !important;
 }
 
 img:hover {
     filter: contrast(1) !important;
     -webkit-filter: contrast(1) !important;
+}
+
+.image-gallery-index {
+    top: 0;
+    right: 50%;
+    transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    -o-transform: translateX(50%);
+    border-radius: 0 0 5px 5px;
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 5px 5px;
+    -ms-border-radius: 0 0 5px 5px;
+    -o-border-radius: 0 0 5px 5px;
+    background: rgb(0 0 0 / 58%);;
+}
+
+.image-gallery-bullets {
+    top: -22px;
 }

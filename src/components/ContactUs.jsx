@@ -8,11 +8,10 @@ import "../Css/ContactUs.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-export default function ContactUs() {
+export default function ContactUs(Props) {
     const form = useRef();
     const [errorPoppup , setErrorPoppup] = useState(false)
     const [errorMessage , setErrorMessage] = useState("")
-    const [Startcontact , setEndcontact] = useState(true)
 
     const sendEmail = (e) => {
       e.preventDefault();
@@ -32,14 +31,14 @@ export default function ContactUs() {
     return (
         <>
             {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
-            <Drawe datar={false} derContact={Startcontact} />
+            <Drawe datar={false} />
             <div className="w-[900px] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-50 flex justify-center items-center">
                 <div className="mainContent relative p-3 bg-[#333] text-white rounded-md flex flex-col justify-between items-center w-[50%] h-auto">
                     <div className="title p-3">
                         <Title colorLetter="Contact Us" />
                     </div>
                     <div className="cursor-pointer absolute left-[-0.25rem] top-[-0.25rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
-                        setEndcontact(false)
+                        Props.finish(false)
                     }}>
                         <FontAwesomeIcon icon={faXmark} />
                     </div>
