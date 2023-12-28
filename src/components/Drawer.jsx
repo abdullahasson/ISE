@@ -4,9 +4,10 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Title from './title';
 import "../Css/Drawer.css"
+// import ytt from "../assets/YTYTYT.svg"
 import Divider from '@mui/material/Divider';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear , faRotateRight , faSliders , faMessage , faXmark , faChevronUp , faImage } from '@fortawesome/free-solid-svg-icons';
+import { faGear , faRotateRight , faMessage , faXmark , faChevronUp , faImage } from '@fortawesome/free-solid-svg-icons';
 
 export default function Drawe(Props) {  
   const [state, setState] = React.useState({
@@ -74,10 +75,14 @@ export default function Drawe(Props) {
     <Box sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 450 }} role="presentation" onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)} className="setting">
       <div className="dahh">
         <div className="title relative">
-        <button 
-          class="translate-y-[-50%] absolute right-3 transition-colors top-[50%] rounded-[100vmax] hover:bg-[#a15151] flex justify-center items-center p-3 w-0 h-0">
+        {/* <button 
+          class="translate-y-[-50%] absolute right-3 top-[50%] rounded-[100vmax] hover:bg-[#a15151] flex justify-center items-center p-3 w-0 h-0">
           <FontAwesomeIcon icon={faXmark} className='text-white'/>
-        </button>
+        </button> */}
+          <div className="cursor-pointer translate-y-[-50%] absolute right-3 top-[50%] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0">
+            <FontAwesomeIcon icon={faXmark} />
+          </div>
+
           <Title colorLetter="Settings" />
         </div>
         <Divider />
@@ -295,7 +300,6 @@ export default function Drawe(Props) {
                     </div>
               </div>
 
-           
               <div className="chooes" tooltip="Contact" onClick={() => {
                 Props.derContact(true)
               }}>
@@ -306,7 +310,8 @@ export default function Drawe(Props) {
                 <div className='chooes' tooltip="Slider" onClick={() => {
                   Props.der(true)
                 }}>
-                  <FontAwesomeIcon icon={faSliders}/>
+                  {/* <FontAwesomeIcon icon={faSliders}/> */}
+                  <img src="/ISE/src/assets/YTYTYT.svg" alt="" srcset="" className='w-[20px]'/>
                 </div>
               }
               { goUp &&

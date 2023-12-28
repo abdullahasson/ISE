@@ -137,6 +137,8 @@ function Container() {
 
 
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    
+    document.body.style.overflow = "auto"
     return (
         <>
             {showpanle && <Control close={showpanle => setshowpanle(showpanle)} photoup={imageurlforpanle} />}
