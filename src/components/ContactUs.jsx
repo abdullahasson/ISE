@@ -1,7 +1,7 @@
 import Drawe from "./Drawer";
 import Poppup from "./poppup"
 import Title from "./title";
-import { useRef , useState } from 'react';
+import { useRef , useState , useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { TextField } from "@mui/material";
 import "../Css/ContactUs.css"
@@ -12,6 +12,15 @@ export default function ContactUs(Props) {
     const form = useRef();
     const [errorPoppup , setErrorPoppup] = useState(false)
     const [errorMessage , setErrorMessage] = useState("")
+
+
+    useEffect(() => {
+        window.addEventListener('keydown', (event) => {
+            if (event.code === 'KeyC') {
+                document.getElementById("close").click()
+            }
+        });
+    })
 
     const sendEmail = (e) => {
       e.preventDefault();
@@ -32,12 +41,12 @@ export default function ContactUs(Props) {
         <>
             {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
             <Drawe datar={false} />
-            <div className="w-[900px] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-50 flex justify-center items-center">
+            <div className="w-[900px] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-50 flex justify-center items-center">
                 <div className="mainContent relative p-3 bg-[#333] text-white rounded-md flex flex-col justify-between items-center w-[50%] h-auto">
                     <div className="title p-3">
                         <Title colorLetter="Contact Us" />
                     </div>
-                    <div className="cursor-pointer absolute left-[-0.25rem] top-[-0.25rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
+                    <div id="close" className="cursor-pointer absolute left-[-0.25rem] top-[-0.25rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
                         Props.finish(false)
                     }}>
                         <FontAwesomeIcon icon={faXmark} />

@@ -118,7 +118,7 @@ body {
   }
 }
 
-
+@media (prefers-reduced-motion: no-preference) { 
 .progress {
   position: fixed;
   top: 0;
@@ -139,7 +139,7 @@ body {
     scale: 1 1;
   }
 }
-
+}
 .container ul > span {
   width: 100%;
 }

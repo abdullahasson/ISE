@@ -71,6 +71,19 @@ export default function Control(Props) {
         }
     })
 
+
+    useEffect(() => {
+        window.addEventListener('keydown', (event) => {
+            if (event.code === 'KeyC') {
+                document.getElementById("close").click()
+            }
+
+            if (event.code == 'KeyW') {
+                document.getElementById("wead").click()
+            }
+        });
+    })
+
     // Loading effect
     const [now, setNow] = useState(false)
     const [Fullw, setFullw] = useState(false)
@@ -127,14 +140,15 @@ export default function Control(Props) {
     document.body.style.overflow = "hidden"
 
     return (
-        <div className="panle flex p-2 justify-center items-center mt-auto" style={{ width: Fullw ? "100%" : "auto", height: Fullw ? "100%" : "auto" }}>
-            <div className="closeb absolute left-0 top-0 flex justify-start items-center">
-                <button className="close w-9 h-9 cursor-pointer text-white flex justify-center items-center p-0" onClick={() => {
+        <div className="panle rounded-[10px] flex p-2 justify-center items-center mt-auto" style={{ width: Fullw ? "100%" : "auto", height: Fullw ? "100%" : "auto" }}>
+            <div className="absolute left-0 top-0 flex justify-start items-center">
+                <button id='close' className="cursor-pointer absolute left-[-0.25rem] top-[-0.25rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
                     Props.close(false)
                     document.body.style.overflow = "auto"
                     document.fullscreenElement == null ? null : handleToggleFullScreen()
                 }}><FontAwesomeIcon icon={faXmark} style={{color: "#ffffff",}} /></button>
-                <button className="waed w-9 h-9 cursor-pointer text-white flex justify-center items-center p-0" 
+
+                <button id='wead' className="cursor-pointer absolute left-[-0.25rem] top-[1.2rem] bg-[#a19c51] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" 
                     onClick={() => {
                         setFullw(Fullw ? false : true),
                         handleToggleFullScreen()

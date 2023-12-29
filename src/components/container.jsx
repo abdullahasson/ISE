@@ -61,7 +61,9 @@ function Container() {
         setgetqulite(window.localStorage.getItem("ImageQuality"))
         setIsDownloading(false)
         setShow(true)
+        console.log(ImageData)
     } 
+
 
     function handleTheQulite() {
         if (getqulite == "thumb") {

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import "../Css/ImageG.css"
@@ -10,12 +11,21 @@ const ImageG = (Props) => {
   const imagelist =[]
   Props.getdatatoslid.map(req => imagelist.push({"original" : req.props.src}))
 
+  // Key Down
+  useEffect(() => {
+    window.addEventListener('keydown', (event) => {
+        if (event.code === 'KeyC') {
+            document.getElementById("close").click()
+        }
+    });
+})
+
   document.body.style.overflow = "hidden"
   return (
     <>
       <div className="w-[97.50%] h-[96.50%] fixed left-[50%] top-[50%] bg-[#3a3939] rounded-[10px] translate-x-[-50%] translate-y-[-50%] z-50">
         <div className='imageG-cover relative'>
-          <div className="cursor-pointer absolute left-[-0.28rem] top-[-0.28rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {Props.finish(false)}}>
+          <div id='close' className="cursor-pointer absolute left-[-0.28rem] top-[-0.28rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {Props.finish(false)}}>
             <FontAwesomeIcon icon={faXmark} />
           </div>
           <ImageGallery 
