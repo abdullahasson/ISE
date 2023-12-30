@@ -52,15 +52,16 @@ function Container() {
             setdataImgthree(data1.map(res => res.urls.full))
             setErrorPoppup(false)
             setisdataready(true)
+            setShow(true)
 
         } catch (error) {
             setErrorMessage(error.message)
             setErrorPoppup(true)
             setisdataready(false)
+            setShow(false)
         }
         setgetqulite(window.localStorage.getItem("ImageQuality"))
         setIsDownloading(false)
-        setShow(true)
         console.log(ImageData)
     } 
 
