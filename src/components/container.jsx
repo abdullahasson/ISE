@@ -9,7 +9,7 @@ import Searshload from "./SearshLoad";
 import ImageG from "./imageG";
 import ContactUs from "./ContactUs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css"
 import { ImageList } from "@mui/material";
@@ -66,56 +66,44 @@ function Container() {
     } 
 
 
+
+    function imageCountainer(parm) {
+        return (
+                <LazyLoadImage 
+                    effect="blur"
+                    wrapperProps={{
+                        // If you need to, you can tweak the effect transition using the wrapper style.
+                        style: {transitionDelay: "1s"},
+                    }}
+                    src={parm}
+                    className="w-full mb-[8px]"
+                    onClick={
+                        () => {
+                            setimageurlforpanle(parm)
+                            setshowpanle(true)
+                        }
+                    }
+                />   
+        )
+    }
+
     function handleTheQulite() {
         if (getqulite == "thumb") {
             return(
                 dataImg.map((item) => (
-                    <LazyLoadImage 
-                        effect="blur"
-                        src={item}
-                        className="w-full"
-                        onClick={
-                            () => {
-                                setimageurlforpanle(item)
-                                setshowpanle(true)
-                            }
-                        }
-                    />    
-                    
+                    imageCountainer(item)
                 ))
             )
         } else if (getqulite == "regular") {
             return(
                 dataImgtwo.map((item) => (
-                    <LazyLoadImage 
-                        effect="blur"
-                        src={item}
-                        className="w-full"
-                        onClick={
-                            () => {
-                                setimageurlforpanle(item)
-                                setshowpanle(true)
-                            }
-                        }
-                    />    
-                    
+                    imageCountainer(item)
                 ))
             )
         } else if (getqulite == "full") {
             return(
                 dataImgthree.map((item) => (
-                    <LazyLoadImage 
-                        effect="blur"
-                        src={item}
-                        className="w-full"
-                        onClick={
-                            () => {
-                                setimageurlforpanle(item)
-                                setshowpanle(true)
-                            }
-                        }
-                    />    
-                    
+                    imageCountainer(item)
                 ))
             )
         } else if (getqulite) {
@@ -159,7 +147,7 @@ function Container() {
                         <input className="searchInput" type="text" value={KeyWord} name placeholder="Search something" onChange={(e) => {
                                 handleInputchange(e)
                             }}  ref={inputRef} style={{pointerEvents : isDownloading ? "none" : "all"}}/>
-                        <button className="searchButton" type="submit" style={{pointerEvents : isDownloading ? "none" : "all"}} onClick={() => {
+                        <button id="fetch" className="searchButton" type="submit" style={{pointerEvents : isDownloading ? "none" : "all"}} onClick={() => {
                                 if (KeyWord.length > 0) {
                                     fetchData(KeyWord)
                                 } else {

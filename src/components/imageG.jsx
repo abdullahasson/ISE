@@ -11,14 +11,27 @@ const ImageG = (Props) => {
   const imagelist =[]
   Props.getdatatoslid.map(req => imagelist.push({"original" : req.props.src}))
 
-  // Key Down
+
   useEffect(() => {
     window.addEventListener('keydown', (event) => {
-        if (event.code === 'KeyC') {
-            document.getElementById("close").click()
-        }
-    });
-})
+      if (event.code === 'KeyC') {
+          document.getElementById("close").click()
+      }
+
+      if (event.code === "ArrowRight") {
+        document.querySelector(".image-gallery-right-nav").click()
+      }
+
+      
+      if (event.code === 'ArrowLeft') {
+        document.querySelector(".image-gallery-left-nav").click()
+      }
+
+      if (event.code === 'Space') {
+        document.querySelector(".image-gallery-play-button").click()
+      }
+  });
+  })
 
   document.body.style.overflow = "hidden"
   return (

@@ -54,7 +54,8 @@ body {
     background-color: #313131;
     background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
     background-size: 30px 30px;
-    background-position: -5px -5px
+    background-position: -5px -5px 
+
 }
 
 
@@ -209,13 +210,14 @@ ul span img {
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
   backdrop-filter: blur(10px);
   width: 20rem;
-  cursor: zoom-in;
   transition: 0.4s;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
   -ms-transition: 0.4s;
   -o-transition: 0.4s;
   box-sizing: border-box;
+  cursor: zoom-in;
+  position: relative;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -223,9 +225,10 @@ ul span img {
   -o-border-radius: 5px;
 }
 
+
 ul span img:hover {
-  border: 1.2px solid #ffffff;
-  filter: contrast(0.5);
+  filter: contrast(0.7);
+  -webkit-filter: contrast(0.7);
 }
 
 /* @media (prefers-reduced-motion: no-preference) { 
