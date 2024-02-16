@@ -1,15 +1,39 @@
 /* eslint-disable react/no-unknown-property */
 import * as React from 'react';
-import nine from "../assets/90.svg"
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
+// CONTEXT API 
+import { AppContext } from "../App";
+// MY COMPONENTS
 import Title from './title';
-import "../Css/Drawer.css"
-import Divider from '@mui/material/Divider';
+// LIBRARY COMPONENTS
+import { 
+    Box ,
+    Divider ,
+    Drawer ,
+    Tooltip
+} from '@mui/material';
+// ICONS
+import { ViewCarouselRounded } from '@mui/icons-material';
+import { 
+    faGear ,
+    faRotateRight ,
+    faMessage , 
+    faXmark , 
+    faChevronUp , 
+    faImage 
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear , faRotateRight , faMessage , faXmark , faChevronUp , faImage } from '@fortawesome/free-solid-svg-icons';
+// CSS FILES
+import "../Css/Drawer.css"
 
-export default function Drawe(Props) {  
+export default function Drawe() {  
+
+  const { 
+      setOpen ,
+      isdataready , 
+      setcontactnow , 
+      setShow
+    } = React.useContext(AppContext)
+
   const [state, setState] = React.useState({
       right: false,
   });
@@ -52,8 +76,6 @@ export default function Drawe(Props) {
 
   const [selectedOption, setSelectedOption] = React.useState(window.localStorage.getItem("bodyPattern"));
   const [selectedOptionTwo , setSelectedOptionTwo] = React.useState(window.localStorage.getItem("ImageQuality"));
-  const [selectedOptionThree , setSelectedOptionThree] = React.useState(window.localStorage.getItem("ShowStyle"));
-
 
   React.useEffect(() => {
     window.addEventListener('keydown', (event) => {
@@ -71,14 +93,18 @@ export default function Drawe(Props) {
   const handleOptionTwoChange = (event) => {
     setSelectedOptionTwo(event.target.value);
     window.localStorage.setItem("ImageQuality" , event.target.value)
-    Props.changetheqr(false)
-    document.getElementById("fetch").click()
+    setShow(false)
+    // document.getElementById("fetch").click()
   };
 
-  const handleOptionThreeChange = (event) => {
-    setSelectedOptionThree(event.target.value);
-    window.localStorage.setItem("ShowStyle" , event.target.value)
-  };
+  // reset user data 
+  function resetUserData() {
+    window.localStorage.clear()
+    setSelectedOption("defult")
+    window.localStorage.setItem("bodyPattern" , "defult")
+    setSelectedOptionTwo("regular")
+    window.localStorage.setItem("ImageQuality" , "regular")
+  }
 
   const list = (anchor) => (
     <Box sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 450 }} role="presentation" onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)} className="setting">
@@ -203,85 +229,9 @@ export default function Drawe(Props) {
           </div>
         </div>
         <Divider />
-        <div className="branches">
-          <div className="pattern mb-3">
-            <h3 className='mb-5 text-white font-medium'>Show style</h3>
-            <div className="optis">
-              <div className="radio-inputs">
-                <label>
-                  <input
-                    className="radio-input" 
-                    type="radio" 
-                    name="ShowStyle" 
-                    value="gallery"
-                    checked={selectedOptionThree === 'gallery'}
-                    onChange={handleOptionThreeChange}
-                  />
-                  <span className="radio-tile">
-                  </span>
-                </label>
-                <label>
-                  <input 
-                    className="radio-input" 
-                    type="radio" 
-                    name="ShowStyle"
-                    value="imageSlider"
-                    checked={selectedOptionThree === 'imageSlider'}
-                    onChange={handleOptionThreeChange}
-                  />
-                  <span className="radio-tile">
-                  </span>
-                </label>
-            </div>
-            </div>
-          </div>
-        </div>
-        <Divider />
-        <div className="branches">
-          <div className="pattern mb-3">
-            <h3 className='mb-5 text-white font-medium'>searsh pattern</h3>
-            <div className="optis">
-              <div className="radio-inputs">
-                <label>
-                  <input
-                    className="radio-input" 
-                    type="radio" 
-                    name="engine" 
-                  />
-                  <span className="radio-tile">
-                  </span>
-                </label>
-                <label>
-                  <input 
-                    className="radio-input" 
-                    type="radio" 
-                    name="engine"
-                  />
-                  <span className="radio-tile">
-                  </span>
-                </label>
-                <label>
-                  <input 
-                    className="radio-input" 
-                    type="radio" 
-                    name="engine"
-                  />
-                  <span className="radio-tile">
-                  </span>
-                </label>
-            </div>
-            </div>
-          </div>
-        </div>
-        <Divider />
         <div>
           <button className='reset-b' onClick={() => {
-            window.localStorage.clear()
-            setSelectedOption("defult")
-            window.localStorage.setItem("bodyPattern" , "defult")
-            setSelectedOptionTwo("regular")
-            window.localStorage.setItem("ImageQuality" , "regular")
-            setSelectedOptionThree("")
+            resetUserData()
           }}><span>Reset <FontAwesomeIcon icon={faRotateRight} /></span></button> 
         </div>
         <Divider />
@@ -294,36 +244,44 @@ export default function Drawe(Props) {
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
 
-            <div className="mainMune">
-              <div 
-                tooltip="Setting" 
-                className="setting-b chooes" 
-                onClick={toggleDrawer(anchor, true)}
-                >
-                    <div className="icon text-white">
-                        <FontAwesomeIcon icon={faGear} style={{"--fa-primary-color": "#ffffff", "--fa-secondary-color": "#ffffff",}} /> 
-                    </div>
-              </div>
-
-              <div className="chooes" tooltip="Contact" onClick={() => {
-                Props.derContact(true)
-              }}>
-                <FontAwesomeIcon icon={faMessage} />
-              </div>
-              
-              { Props.datar && 
-                <div className='chooes' tooltip="Slider" onClick={() => {
-                  Props.der(true)
-                }}>
-                  <img src={nine} alt="" />
+            <div className="mainMune z-20">
+              <Tooltip title="Setting" placement="left">
+                <div 
+                  id='Setting'
+                  className="setting-b chooes" 
+                  onClick={toggleDrawer(anchor, true)}
+                  >
+                      <div className="icon text-white">
+                          <FontAwesomeIcon icon={faGear} style={{"--fa-primary-color": "#ffffff", "--fa-secondary-color": "#ffffff",}} /> 
+                      </div>
                 </div>
+              </Tooltip>
+
+              <Tooltip title="Contact" placement="left">
+                <div id='Contact' className="chooes" onClick={() => {
+                  setcontactnow(true)
+                }}>
+                  <FontAwesomeIcon icon={faMessage} />
+                </div>
+              </Tooltip>  
+              
+              { isdataready && 
+                <Tooltip title="Slider" placement="left">
+                  <div id="Slider" className='chooes' onClick={() => {
+                    setOpen(true)
+                  }}>
+                    <ViewCarouselRounded/>
+                  </div>
+                </Tooltip>
               }
               { goUp &&
-                <div className='chooes' tooltip="Up" onClick={() => {
-                  window.scrollTo(0 , 0)
-                }}>
-                  <FontAwesomeIcon icon={faChevronUp} />
-                </div>
+                <Tooltip title="Up" placement="left">
+                  <div id='Up' className='chooes' onClick={() => {
+                    window.scrollTo(0 , 0)
+                  }}>
+                    <FontAwesomeIcon icon={faChevronUp} />
+                  </div>
+                </Tooltip>
               }
             </div>
 

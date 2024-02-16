@@ -1,53 +1,50 @@
-import Drawe from "./Drawer";
+import { useRef , useState , useContext } from 'react';
+// CONTEXT API 
+import { AppContext } from "../App";
+// MY COMPONENTS
 import Poppup from "./poppup"
 import Title from "./title";
-import { useRef , useState , useEffect } from 'react';
+// LIBRARY COMPONENTS
 import emailjs from '@emailjs/browser';
 import { TextField } from "@mui/material";
-import "../Css/ContactUs.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// ICONS
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+// CSS FILES
+import "../Css/ContactUs.css"
 
-export default function ContactUs(Props) {
+export default function ContactUs() {
+    
+    const { setcontactnow } = useContext(AppContext)
+
     const form = useRef();
     const [errorPoppup , setErrorPoppup] = useState(false)
     const [errorMessage , setErrorMessage] = useState("")
 
 
-    useEffect(() => {
-        window.addEventListener('keydown', (event) => {
-            if (event.code === 'KeyC') {
-                document.getElementById("close").click()
-            }
-        });
-    })
-
     const sendEmail = (e) => {
-      e.preventDefault();
-  
-      emailjs.sendForm('service_837plud', 'template_adlozdz', form.current, 'Fp-bsNyp7ZHevdX6W')
+        e.preventDefault();
+    
+        emailjs.sendForm('service_837plud', 'template_adlozdz', form.current, 'Fp-bsNyp7ZHevdX6W')
         .then((result) => {
-            setErrorMessage(result.text)
-            setErrorPoppup(true)
-            window.location.reload();
+            console.log(result)
         }, (error) => {
             setErrorMessage(error.text)
             setErrorPoppup(true)
+            console.log(error)
         });
     };
-
-    document.body.style.overflow = "hidden"
+    
     return (
         <>
             {errorPoppup ? <Poppup messageProblem={errorMessage} /> : null}
-            <Drawe datar={false} />
             <div className="w-[900px] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-50 flex justify-center items-center">
                 <div className="mainContent relative p-3 bg-[#333] text-white rounded-md flex flex-col justify-between items-center w-[50%] h-auto">
                     <div className="title p-3">
                         <Title colorLetter="Contact Us" />
                     </div>
                     <div id="close" className="cursor-pointer absolute left-[-0.25rem] top-[-0.25rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
-                        Props.finish(false)
+                        setcontactnow(false)
                     }}>
                         <FontAwesomeIcon icon={faXmark} />
                     </div>
@@ -78,7 +75,7 @@ export default function ContactUs(Props) {
                                     color="info"
                                     required={true}
                                     size="small"
-                                    />
+                                />
                             </div>
                         </div>
                         <div className="who bg-transparent flex flex-col items-center w-full h-full">
@@ -94,7 +91,7 @@ export default function ContactUs(Props) {
                                 required={true}
                                 minRows="8"
                                 maxRows="8"
-                                />
+                            />
                         </div>
                         
                         <button

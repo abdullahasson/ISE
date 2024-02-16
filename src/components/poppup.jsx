@@ -1,14 +1,41 @@
-import "../Css/poppup.css"
+import { forwardRef } from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
+const Transition = forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 
 function Poppup(Props) {
+
     return(
-        <div className="card">
-            <div className="card-inner overflow-hidden">
-                <div className="timer l absolute top-0 h-1 w-full bg-white rounded-[22px]"></div>
-                {Props.messageProblem}  
-                <div className="timer r absolute bottom-0 h-1 w-full bg-white rounded-[22px]"></div> 
-            </div>
-        </div>
+
+        <>
+            <Dialog
+                open={Props.er}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={() => {!Props.er}}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                    {Props.messageProblem} 
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={() => {!Props.er}}>Disagree</Button>
+                <Button onClick={() => {console.log("fauk")}}>Agree</Button>
+                </DialogActions>
+            </Dialog>
+        </>
     )
 }
 

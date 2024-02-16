@@ -19,11 +19,9 @@ function Title(Props) {
 
     return (
         <div className="title text-center">
-             <h1 className="font-semibold text-3xl text-white">
-            {
-                handleColor()
-            }
-             </h1>
+            <h1 className="font-semibold text-3xl text-white">
+                {handleColor()}
+            </h1>
         </div>
     )
 }
