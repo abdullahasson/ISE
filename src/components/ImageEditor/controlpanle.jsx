@@ -1,17 +1,18 @@
-import { useEffect, useState , useContext , createContext } from "react";
+import { useEffect, useState, useContext, createContext } from "react";
 import "../../Css/panle.css"
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark , faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from "../../App";
 import Filters from "./filters";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 export const ImageEditor = createContext()
 
+
 export default function Control() {
 
-    const { setshowpanle , imageurlforpanle } = useContext(AppContext)
+    const { setshowpanle, imageurlforpanle } = useContext(AppContext)
 
 
     const [now, setNow] = useState(false)
@@ -25,7 +26,7 @@ export default function Control() {
             // show loader while the image complete 
             setwaitImag(true)
             try {
-                const response = await axios.get(imageurlforpanle , {
+                const response = await axios.get(imageurlforpanle, {
                     responseType: 'blob',
                 });
 
@@ -42,7 +43,7 @@ export default function Control() {
 
             setTimeout(() => {
                 console.log("redy")
-            } , 1000)
+            }, 1000)
         }
 
         getimage()
@@ -80,38 +81,37 @@ export default function Control() {
 
     const [Fullw, setFullw] = useState(false)
     const [isFullScreen, setIsFullScreen] = useState(false);
-    
+
     useEffect(() => {
         const handleFullScreenChange = () => {
-        setIsFullScreen(document.fullscreenElement !== null);
+            setIsFullScreen(document.fullscreenElement !== null);
         };
-    
+
         document.addEventListener("fullscreenchange", handleFullScreenChange);
-    
+
         return () => {
-        document.removeEventListener("fullscreenchange", handleFullScreenChange);
+            document.removeEventListener("fullscreenchange", handleFullScreenChange);
         };
     }, []);
-    
+
     const handleToggleFullScreen = () => {
         if (!isFullScreen) {
             document.documentElement.requestFullscreen();
         } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
         }
     };
 
 
-    const [values , setValues] = useState(``)
+    const [values, setValues] = useState(``)
     const state = {
-        now , 
-        setNow ,
-        values ,
-        setValues ,
+        now,
+        setNow,
+        values,
+        setValues,
     }
-
 
 
     return (
@@ -124,14 +124,14 @@ export default function Control() {
                         document.body.style.overflow = "auto"
                         document.fullscreenElement == null ? null : handleToggleFullScreen()
                     }}>
-                        <FontAwesomeIcon icon={faXmark} style={{color: "#ffffff",}} />
+                        <FontAwesomeIcon icon={faXmark} style={{ color: "#ffffff", }} />
                     </button>
 
 
-                    <button id='wead' className="cursor-pointer absolute left-[-0.25rem] top-[1.2rem] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" 
+                    <button id='wead' className="cursor-pointer absolute left-[-0.25rem] top-[1.2rem] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0"
                         onClick={() => {
                             setFullw(Fullw ? false : true),
-                            handleToggleFullScreen()
+                                handleToggleFullScreen()
                         }}
                     >
                         {isFullScreen ? <FontAwesomeIcon icon={faCompress} style={{ color: "#ffffff", }} /> : <FontAwesomeIcon icon={faExpand} style={{ color: "#ffffff", }} />}
@@ -151,10 +151,10 @@ export default function Control() {
                                     <button onClick={() => resetTransform()}>x</button>
                                 </div>
                                 <TransformComponent>
-                                    <canvas id="canvas"  onDrag={() => {
+                                    <canvas id="canvas" onDrag={() => {
                                         document.getElementById("canvas").style.cursor = "grabbing"
                                     }}>
-                                        
+
                                     </canvas>
                                 </TransformComponent>
                             </>
