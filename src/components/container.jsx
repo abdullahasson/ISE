@@ -33,9 +33,6 @@ import "react-lazy-load-image-component/src/effects/blur.css"
 
 
 
-
-
-
 const reducerMessageFun = (state, action) => {
     switch (action.type) {
         case "True":
@@ -80,14 +77,13 @@ export default function Container() {
     }, []);
 
     const Acces = "kwoGX8fZRJ3jT0fIXiGQApZDXret2VF3gRsaMZokv0g"
+
     const fetchData = async (parm) => {
         setIsDownloading(true)
         try {
-            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=20content_filter=low&client_id=${Acces}`);
+            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=22content_filter=low&client_id=${Acces}`);
             const result = await Promise.all([response1]);
             const [data1] = result.map(res => res.data);
-
-            console.log(data1)
             setTotal(data1.total)
             setdataImg(data1.results.map(res => res));
             dispatch({ type: 'False' })
@@ -117,6 +113,18 @@ export default function Container() {
         setdataImg([])
     }
 
+    window.addEventListener("scroll", () => {
+        function isAtEndOfPage() {
+            return (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+        }
+
+        if (isAtEndOfPage()) {
+            console.log("The end of the page")
+        } else {
+            console.log("Not at the end of the page yet.")
+        }
+    })
+
     const [state, dispatch] = useReducer(reducerMessageFun, { errorPoppup: false, errorMessage: "" })
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
@@ -143,7 +151,7 @@ export default function Container() {
             </Dialog>
 
 
-            <div className="progress z-20"></div>
+            <div className="progress z-20 hidden" />
             {show && <ResultNum total={Total} />}
 
             <div className="container flex flex-col items-center justify-between">
@@ -166,13 +174,9 @@ export default function Container() {
                     </div>
                 </form>
 
-                {show ? (
-                    <ImageList variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
-                        {dataImg.map((item) => (
-                            <ImageCountainer parm={item} />
-                        ))}
-                    </ImageList>
-                ) : null}
+                <ImageList variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
+                    {show ? (dataImg.map((item) => (<ImageCountainer parm={item} />))) : null}
+                </ImageList>
             </div>
 
             <Backdrop

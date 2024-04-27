@@ -1,16 +1,14 @@
-import { useContext , useState } from 'react';
-import Btnload from "./btnload";
+import { useContext, useState } from 'react';
+// import Btnload from "./btnload";
 import { Slider } from '@mui/material';
 import { ImageEditor } from './controlpanle';
 
 
 
-// eslint-disable-next-line react-refresh/only-export-components
-export default function Filters() {
+// eslint-disable-next-line react-refresh/only-export-components, react/prop-types
+export default function Filters({ className, style }) {
 
-    const { now , setValues } = useContext(ImageEditor)
-
-
+    const { setValues } = useContext(ImageEditor)
     // store the values of ranges
     const [blur, setBlur] = useState(0);
     const [brightness, setBrightness] = useState(1);
@@ -22,9 +20,8 @@ export default function Filters() {
     const [sepia, setSepia] = useState(0);
     const [invert, setInvert] = useState(0);
 
-    
     const values =
-    `
+        `
         blur(${blur}px) 
         grayscale(${grayscale}) 
         brightness(${brightness}) 
@@ -35,23 +32,32 @@ export default function Filters() {
         sepia(${sepia})
         invert(${invert})
     `;
-    
+
     setValues(values)
 
     return (
-        <form action="" className="flex-col w-[50%] gap-0 p-8 relative max-[566px]:w-full flex" onSubmit={(event) => { event.preventDefault() }}>
+        <form style={style} action="" className={`flex-col gap-0 p-8 relative max-[566px]:w-full ${className || ''}`} onSubmit={(event) => { event.preventDefault() }}>
+
+            <div
+                id='newPosition'
+                className={`
+                    bg-[#474747] p-3 rounded-full absolute left-0 top-0 m-2 border-transparent border-1 cursor-grab
+                    hover:bg-[#333] hover:border-[#ddd]
+                `}
+            />
+
             <div className="part"  >
                 <Slider
                     size="small"
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setBrightness(e.target.value) }}
-                    value={brightness} 
-                    max={3} 
+                    value={brightness}
+                    max={3}
                     step={0.1}
                 />
                 <label htmlFor="">Brightness</label>
-            </div> 
+            </div>
 
             {/* Contrast */}
             <div className="part"  >
@@ -60,8 +66,8 @@ export default function Filters() {
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setContrast(e.target.value) }}
-                    value={contrast} 
-                    max={3} 
+                    value={contrast}
+                    max={3}
                     step={0.1}
                 />
                 <label htmlFor="">Contrast</label>
@@ -74,8 +80,8 @@ export default function Filters() {
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setSaturate(e.target.value) }}
-                    value={saturate} 
-                    max={3} 
+                    value={saturate}
+                    max={3}
                     step={0.1}
                 />
                 <label htmlFor="">saturate</label>
@@ -88,8 +94,8 @@ export default function Filters() {
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setBlur(e.target.value) }}
-                    value={blur} 
-                    max={3} 
+                    value={blur}
+                    max={3}
                     step={0.1}
                 />
                 <label htmlFor="">Blur</label>
@@ -102,8 +108,8 @@ export default function Filters() {
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setGrayscale(e.target.value) }}
-                    value={grayscale} 
-                    max={3} 
+                    value={grayscale}
+                    max={3}
                     step={0.1}
                 />
                 <label htmlFor="">Grayscale</label>
@@ -116,8 +122,8 @@ export default function Filters() {
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setHuerotate(e.target.value) }}
-                    value={hueRotate} 
-                    max={360} 
+                    value={hueRotate}
+                    max={360}
                     step={1}
                 />
                 <label htmlFor="">hueRotate</label>
@@ -130,8 +136,8 @@ export default function Filters() {
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setSepia(e.target.value) }}
-                    value={sepia} 
-                    max={3} 
+                    value={sepia}
+                    max={3}
                     step={0.1}
                 />
                 <label htmlFor="">sepia</label>
@@ -144,8 +150,8 @@ export default function Filters() {
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setInvert(e.target.value) }}
-                    value={invert} 
-                    max={3} 
+                    value={invert}
+                    max={3}
                     step={0.1}
                 />
                 <label htmlFor="">invert</label>
@@ -159,28 +165,13 @@ export default function Filters() {
                     aria-label="Small"
                     valueLabelDisplay="auto"
                     onChange={(e) => { setOpacity(e.target.value) }}
-                    value={opacity} 
-                    max={1} 
+                    value={opacity}
+                    max={1}
                     step={0.1}
                 />
                 <label htmlFor="">Opacite</label>
             </div>
 
-
-            <div className="buttons p-4 flex items-center justify-center gap-3">
-                <a download="image" id="download" href="" className="download">{now ? <Btnload /> : <span>Download</span>}</a>
-                <button className="reset" href="" onClick={() => {
-                    setBlur(0)
-                    setBrightness(1)
-                    setGrayscale(0)
-                    setContrast(1)
-                    setHuerotate(0)
-                    setOpacity(1)
-                    setSaturate(1)
-                    setSepia(0)
-                    setInvert(0)
-                }}>Reset</button>
-            </div>
         </form>
     )
 }

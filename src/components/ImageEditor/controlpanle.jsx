@@ -3,6 +3,10 @@ import "../../Css/panle.css"
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import ZoomOutIcon from '@mui/icons-material/ZoomOut';
+import TuneIcon from '@mui/icons-material/Tune';
+import { Settings, ResetTv, Download } from "@mui/icons-material";
 import { AppContext } from "../../App";
 import Filters from "./filters";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
@@ -13,7 +17,6 @@ export const ImageEditor = createContext()
 export default function Control() {
 
     const { setshowpanle, imageurlforpanle } = useContext(AppContext)
-
 
     const [now, setNow] = useState(false)
     // get image from main section
@@ -106,19 +109,108 @@ export default function Control() {
 
 
     const [values, setValues] = useState(``)
+
     const state = {
         now,
         setNow,
         values,
-        setValues,
+        setValues
     }
+
+    const [isDragging, setIsDragging] = useState(false);
+    const [useFilter, setUseFilter] = useState(false)
+
 
 
     return (
         <ImageEditor.Provider value={state}>
-            <div className="panle rounded-[10px] flex justify-between items-center mt-auto" style={{ width: Fullw ? "100%" : "auto", height: Fullw ? "100%" : "auto" }}>
-                <div className="absolute left-0 top-0 flex justify-start items-center bg-[#fff]">
-                    <button id='close' className="cursor-pointer absolute left-[-0.25rem] top-[-0.25rem] bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
+
+            <div className="w-full h-full bg-[#1f1d1d] fixed left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] flex justify-between items-center mt-auto" >
+
+                <div className="bord flex justify-center items-center relative h-full w-full left-1/2 top-0 -translate-x-[50%]">
+                    <div className="loader" style={{ display: waitImag ? "block" : "none" }}></div>
+                    <img src={getU} id="Im" alt="" style={{ filter: values }} />
+                    <TransformWrapper
+                        // initialScale={1}
+                        // initialPositionX={200}
+                        // initialPositionY={100}
+                        className="whel hidden relative w-auto">
+                        {({ zoomIn, zoomOut }) => (
+                            <>
+                                <div className=" absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full z-50 p-2 flex gap-2 items-center ">
+                                    <button className={`p-2 bg-[#292828] m-1 rounded-full transition-colors flex justify-center items-center hover:bg-[#0071e2]`} onClick={() => zoomOut()}><ZoomOutIcon /></button>
+                                    <button className={`p-2 bg-[#292828] m-1 rounded-full transition-colors flex justify-center items-center hover:bg-[#0071e2]`} onClick={() => zoomIn()}><ZoomInIcon /></button>
+                                </div>
+
+                                <TransformComponent>
+                                    <canvas
+                                        draggable
+                                        onDragStart={() => setIsDragging(true)}
+                                        onMouseMove={() => setIsDragging(false)}
+                                        className={` 
+                                            h-full w-full
+                                            ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}
+                                        `}
+                                        id="canvas"
+                                    ></canvas>
+                                </TransformComponent>
+                            </>
+                        )}
+                    </TransformWrapper>
+                </div>
+
+                <Filters
+                    className={`bg-[#2e2d2d] rounded-2xl w-[250px] `}
+                    style={{
+                        display: useFilter ? "flex" : "none",
+                        position: "absolute",
+                        left: "60px",
+                        top: "20px"
+                    }}
+                />
+
+                <div className="left-bar h-full p-2 w-auto bg-[#2e2d2d] absolute right-0 flex flex-col items-center justify-center gap-2">
+
+                    <button
+                        onClick={() => setUseFilter(!useFilter)}
+                        className={`
+                            ${useFilter ? "bg-[#6ccfd6]" : "bg-[#242323]"}
+                            w-[30px] h-[30px] rounded-full 
+                            hover:bg-[#6ccfd6]
+                        `}
+                    >
+                        <TuneIcon />
+                    </button>
+
+                    <a
+                        className={`
+                            w-[30px] h-[30px] rounded-full bg-[#242323] flex justify-center items-center
+                            hover:bg-[#6ccfd6]
+                        `}
+                        download="image"
+                        id="download"
+                        href=""
+                    >
+                        <Download />
+                    </a>
+
+                    <button
+                        className={`
+                            w-[30px] h-[30px] rounded-full bg-[#242323] flex justify-center items-center
+                            hover:bg-[#6ccfd6]
+                        `}
+                        onClick={() => {
+                            setValues(``)
+                        }}
+                    >
+                        <ResetTv />
+                    </button>
+
+                </div>
+
+                <div className="right-bar h-full p-2 w-auto bg-[#2e2d2d] absolute left-0 flex flex-col items-center justify-center gap-2">
+
+                    <button id='close' className="cursor-pointer bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
                         setshowpanle(false)
                         setValues(``)
                         document.body.style.overflow = "auto"
@@ -127,8 +219,7 @@ export default function Control() {
                         <FontAwesomeIcon icon={faXmark} style={{ color: "#ffffff", }} />
                     </button>
 
-
-                    <button id='wead' className="cursor-pointer absolute left-[-0.25rem] top-[1.2rem] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0"
+                    <button id='wead' className="cursor-pointer flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0"
                         onClick={() => {
                             setFullw(Fullw ? false : true),
                                 handleToggleFullScreen()
@@ -136,35 +227,16 @@ export default function Control() {
                     >
                         {isFullScreen ? <FontAwesomeIcon icon={faCompress} style={{ color: "#ffffff", }} /> : <FontAwesomeIcon icon={faExpand} style={{ color: "#ffffff", }} />}
                     </button>
+
+                    <button>
+                        <Settings />
+                    </button>
+
                 </div>
 
-
-                <div className="bord">
-                    <div className="loader" style={{ display: waitImag ? "block" : "none" }}></div>
-                    <img src={getU} id="Im" alt="" style={{ filter: values }} />
-                    <TransformWrapper className="whel relative w-auto">
-                        {({ zoomIn, zoomOut, resetTransform }) => (
-                            <>
-                                <div className="absolute rounded-full right-1 bottom-1 bg-[#615f5f] z-30 p-2 flex flex-col items-center ">
-                                    <button onClick={() => zoomIn()}>+</button>
-                                    <button onClick={() => zoomOut()}>-</button>
-                                    <button onClick={() => resetTransform()}>x</button>
-                                </div>
-                                <TransformComponent>
-                                    <canvas id="canvas" onDrag={() => {
-                                        document.getElementById("canvas").style.cursor = "grabbing"
-                                    }}>
-
-                                    </canvas>
-                                </TransformComponent>
-                            </>
-                        )}
-                    </TransformWrapper>
-                </div>
-
-                <Filters />
 
             </div>
+
         </ImageEditor.Provider>
     )
 }

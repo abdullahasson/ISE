@@ -10,19 +10,6 @@
   box-sizing: border-box;
 }
 
-.panle {
-  width: 800px;
-  background-color: #1f1d1d;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  /* z-index: 99; */
-}
 
 @media (max-width: 360px) {
   .panle {
@@ -71,6 +58,7 @@ canvas {
 }
 
 @media (max-width: 767px) {
+
   .panle img,
   canvas {
     max-width: 400px !important;
@@ -78,11 +66,6 @@ canvas {
   }
 }
 
-.bord {
-  margin: 25px;
-  width: 400px;
-  position: relative;
-}
 
 .bord .loader {
   display: block;
