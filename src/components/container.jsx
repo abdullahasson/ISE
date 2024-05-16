@@ -81,7 +81,7 @@ export default function Container() {
     const fetchData = async (parm) => {
         setIsDownloading(true)
         try {
-            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=22content_filter=low&client_id=${Acces}`);
+            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=1000content_filter=low&client_id=${Acces}`);
             const result = await Promise.all([response1]);
             const [data1] = result.map(res => res.data);
             setTotal(data1.total)
@@ -152,7 +152,7 @@ export default function Container() {
 
 
             <div className="progress z-20 hidden" />
-            {show && <ResultNum total={Total} />}
+            {show && <ResultNum total={Total} word={KeyWord} />}
 
             <div className="container flex flex-col items-center justify-between">
 
@@ -174,7 +174,7 @@ export default function Container() {
                     </div>
                 </form>
 
-                <ImageList variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
+                <ImageList style={{ overflowY: "hidden" }} variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
                     {show ? (dataImg.map((item) => (<ImageCountainer parm={item} />))) : null}
                 </ImageList>
             </div>

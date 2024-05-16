@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 
+.transform-component-module_wrapper__SPB86 {
+  overflow: visible !important
+}
+
 * {
   font-family: 'Poppins', sans-serif;
 }
@@ -16,46 +20,43 @@ html {
 body {
   background: #212121;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   overflow-x: hidden;
+  /* background-image: linear-gradient(to right bottom, #121212, #1d1d1e, #27282a, #303437, #3a4044); */
+  background-image: linear-gradient(to left top, #121212, #212122, #2e3033, #3c4145, #4a5257);
 }
 
 .One {
-  --s: 200px; /* control the size */
+  --s: 200px;
+  /* control the size */
   --c1: #1d1d1d;
   --c2: #4e4f51;
   --c3: #3c3c3c;
 
-  background: repeating-conic-gradient(
-        from 30deg,
-        #0000 0 120deg,
-        var(--c3) 0 180deg
-      )
-      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
-    repeating-conic-gradient(
-      from 30deg,
+  background: repeating-conic-gradient(from 30deg,
+      #0000 0 120deg,
+      var(--c3) 0 180deg) calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(from 30deg,
       var(--c1) 0 60deg,
       var(--c2) 0 120deg,
-      var(--c3) 0 180deg
-    );
+      var(--c3) 0 180deg);
   background-size: var(--s) calc(var(--s) * 0.577);
 }
 
 .Two {
   --color: rgba(114, 114, 114, 0.3);
   background-color: #191a1a;
-  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
-      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
+  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
   background-size: 55px 55px;
 }
 
 .Three {
-    /* Add your background pattern here */
-    background-color: #313131;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
-    background-size: 30px 30px;
-    background-position: -5px -5px 
-
+  /* Add your background pattern here */
+  background-color: #313131;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px
 }
 
 
@@ -95,23 +96,27 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
 /* Small */
 @media (max-width: 360px) {
   .container {
     width: 100%;
   }
 }
+
 @media (min-width: 768px) {
   .container {
     width: 750px;
   }
 }
+
 /* Medium */
 @media (min-width: 992px) {
   .container {
     width: 970px;
   }
 }
+
 /* Large */
 @media (min-width: 1200px) {
   .container {
@@ -119,29 +124,30 @@ body {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) { 
-.progress {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 5px;
-  background-color: #009EFD;
-  border-radius: 0 2px 2px 0;
-  /* z-index: 1000000; */
-  scale: 0 1;
-  animation: scrollanimate linear;
-  -webkit-animation: scrollanimate linear;
-  animation-timeline: scroll(y);
-  transform-origin: left;
-}
+@media (prefers-reduced-motion: no-preference) {
+  .progress {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #009EFD;
+    border-radius: 0 2px 2px 0;
+    /* z-index: 1000000; */
+    scale: 0 1;
+    animation: scrollanimate linear;
+    -webkit-animation: scrollanimate linear;
+    animation-timeline: scroll(y);
+    transform-origin: left;
+  }
 
-@keyframes scrollanimate {
-  to {
-    scale: 1 1;
+  @keyframes scrollanimate {
+    to {
+      scale: 1 1;
+    }
   }
 }
-}
-.container ul > span {
+
+.container ul>span {
   width: 100%;
 }
 
@@ -183,7 +189,7 @@ body {
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
 }
 
-.searchButton:hover  {
+.searchButton:hover {
   color: #fff;
   background-color: #1A1A1A;
   box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;

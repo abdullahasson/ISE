@@ -1,4 +1,3 @@
-
 import { useState, useContext } from "react";
 // App Context
 import { AppContext } from "../../App";
@@ -6,10 +5,9 @@ import { AppContext } from "../../App";
 import { Box, ImageListItem, ImageListItemBar, IconButton, Avatar } from "@mui/material"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { BlurhashCanvas } from "react-blurhash"
-
+import DownloadBtn from "../downloadBtn"
 // Icon 
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-// import Download from '@mui/icons-material/Download';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 
@@ -25,7 +23,7 @@ export default function ImageCountainer(Props) {
     const [DeleteBlur, setDeleteBlur] = useState(false)
 
     return (
-        <div className="relative">
+        <div className="relative" data-aos="zoom-in">
             <BlurhashCanvas
                 hash={`${Props.parm.blur_hash}`}
                 style={{
@@ -62,6 +60,10 @@ export default function ImageCountainer(Props) {
                 </section>
                 <ImageListItemBar
                     position="bottom"
+                    style={{
+                        height: "45px",
+                        padding: "2px"
+                    }}
                     actionIcon={
                         <div className="flex justify-between items-center w-full p-2 ">
                             <Box className="flex items-center justify-between gap-1">
@@ -80,11 +82,7 @@ export default function ImageCountainer(Props) {
                             >
                                 <Avatar alt="Remy Sharp" src={Props.parm.user.profile_image.medium} />
                             </IconButton>
-                            <IconButton>
-                                <a download="image" href={Props.parm.links.download}>
-                                    Download
-                                </a>
-                            </IconButton>
+                            <DownloadBtn url={Props.parm.urls[getqulite]} />
                         </div>
                     }
                 />

@@ -1,18 +1,27 @@
 import { useEffect, useState, useContext, createContext } from "react";
-import "../../Css/panle.css"
+// API Call
 import axios from 'axios';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import ZoomOutIcon from '@mui/icons-material/ZoomOut';
-import TuneIcon from '@mui/icons-material/Tune';
-import { Settings, ResetTv, Download } from "@mui/icons-material";
 import { AppContext } from "../../App";
+// Components
+import DownloadBtn from "../downloadBtn"
 import Filters from "./filters";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark, faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
+import ZoomOutIcon from '@mui/icons-material/ZoomOut';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import TuneIcon from '@mui/icons-material/Tune';
+import { Settings, ResetTv, Download } from "@mui/icons-material";
+// CSS
+import "../../Css/panle.css"
+
+
+
+
+
 
 export const ImageEditor = createContext()
-
 
 export default function Control() {
 
@@ -22,6 +31,8 @@ export default function Control() {
     // get image from main section
     const [getU, setGetu] = useState()
     const [waitImag, setwaitImag] = useState(false)
+    // URL for download
+    const [canvasUrl, setCanvasUrl] = useState("")
 
 
     useEffect(() => {
@@ -79,6 +90,8 @@ export default function Control() {
                 setNow(false)
                 dow.classList.remove("active")
             }, 2000);
+
+            setCanvasUrl(canvas.toDataURL("image/jpg"))
         }
     })
 
@@ -194,6 +207,12 @@ export default function Control() {
                         <Download />
                     </a>
 
+
+                    <DownloadBtn url={canvasUrl}>
+
+                    </DownloadBtn>
+
+
                     <button
                         className={`
                             w-[30px] h-[30px] rounded-full bg-[#242323] flex justify-center items-center
@@ -233,10 +252,7 @@ export default function Control() {
                     </button>
 
                 </div>
-
-
             </div>
-
         </ImageEditor.Provider>
     )
 }
