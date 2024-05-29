@@ -9,6 +9,8 @@ import DownloadBtn from "../downloadBtn"
 // Icon 
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+// CSS
+import "../../Css/ImageContainer.css"
 
 
 export default function ImageCountainer(Props) {
@@ -23,18 +25,19 @@ export default function ImageCountainer(Props) {
     const [DeleteBlur, setDeleteBlur] = useState(false)
 
     return (
-        <div className="relative" data-aos="zoom-in">
+        <div className="relative">
             <BlurhashCanvas
                 hash={`${Props.parm.blur_hash}`}
                 style={{
                     position: "absolute",
                     zIndex: "10",
                     width: "100%",
-                    height: "100%",
-                    minHeight: "278px"
+                    minHeight: "278px",
+                    height: "100%"
                 }}
+                className="rounded-md"
             />
-            <ImageListItem className="absolute z-10 min-h-[300px]">
+            <ImageListItem className="absolute z-10 min-h-[300px] rounded-md overflow-hidden">
                 <section>
                     <LazyLoadImage
                         id={Props.parm.id}
@@ -50,9 +53,6 @@ export default function ImageCountainer(Props) {
                         }
                         onLoad={() => {
                             setDeleteBlur(!DeleteBlur)
-                        }}
-                        onError={(e) => {
-                            e.target.src = "https://sirv.com/help/articles/customized-error-images/"; // Replace 'path_to_default_image' with the URL or path to your default image
                         }}
                         delayMethod="debounce"
                         delayTime="100"
@@ -89,7 +89,5 @@ export default function ImageCountainer(Props) {
             </ImageListItem>
         </div>
     )
-
-
 
 } 

@@ -70,6 +70,7 @@ export default function Container() {
     const [KeyWord, setKeyWord] = useState("")
     const [isDownloading, setIsDownloading] = useState(false);
     const [Total, setTotal] = useState("")
+    const [newPage, setNewPage] = useState(2)
 
     const inputRef = useRef(null);
     useLayoutEffect(() => {
@@ -81,11 +82,13 @@ export default function Container() {
     const fetchData = async (parm) => {
         setIsDownloading(true)
         try {
-            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=1000content_filter=low&client_id=${Acces}`);
+            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=1&query=${parm}&per_page=10content_filter=low&client_id=${Acces}`);
             const result = await Promise.all([response1]);
             const [data1] = result.map(res => res.data);
             setTotal(data1.total)
             setdataImg(data1.results.map(res => res));
+
+            // console.log(dataImg)
             dispatch({ type: 'False' })
             setisdataready(true)
             setShow(true)
@@ -97,6 +100,25 @@ export default function Container() {
         setgetqulite(window.localStorage.getItem("ImageQuality"))
         setIsDownloading(false)
     }
+
+
+    const moreData = async (parm, num) => {
+        try {
+            const response1 = axios.get(`https://api.unsplash.com/search/photos?page=${num}&query=${parm}&per_page=10content_filter=low&client_id=${Acces}`);
+            const result = await Promise.all([response1]);
+            const [data2] = result.map(res => res.data);
+
+            dataImg.length == 0 ?
+                console.log("wait")
+                :
+                // console.log(dataImg)
+                setdataImg([...data2.results, ...dataImg])
+
+        } catch (error) {
+            console.log("error :" + error)
+        }
+    }
+
 
     function slideOption() {
         return (
@@ -113,17 +135,14 @@ export default function Container() {
         setdataImg([])
     }
 
-    window.addEventListener("scroll", () => {
-        function isAtEndOfPage() {
-            return (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
-        }
 
-        if (isAtEndOfPage()) {
-            console.log("The end of the page")
-        } else {
-            console.log("Not at the end of the page yet.")
-        }
-    })
+
+    function GetNewImage() {
+        moreData(KeyWord, newPage)
+        setNewPage(newPage + 1)
+        console.log(newPage, KeyWord)
+    }
+
 
     const [state, dispatch] = useReducer(reducerMessageFun, { errorPoppup: false, errorMessage: "" })
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -177,6 +196,17 @@ export default function Container() {
                 <ImageList style={{ overflowY: "hidden" }} variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
                     {show ? (dataImg.map((item) => (<ImageCountainer parm={item} />))) : null}
                 </ImageList>
+
+
+                <div className="p-10">
+                    {
+                        Total == 0 ?
+                            null :
+                            <button className="moreButton" onClick={GetNewImage} >
+                                More
+                            </button>
+                    }
+                </div>
             </div>
 
             <Backdrop

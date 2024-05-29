@@ -3,7 +3,6 @@ import { useEffect, useState, useContext, createContext } from "react";
 import axios from 'axios';
 import { AppContext } from "../../App";
 // Components
-import DownloadBtn from "../downloadBtn"
 import Filters from "./filters";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // Icons
@@ -31,9 +30,6 @@ export default function Control() {
     // get image from main section
     const [getU, setGetu] = useState()
     const [waitImag, setwaitImag] = useState(false)
-    // URL for download
-    const [canvasUrl, setCanvasUrl] = useState("")
-
 
     useEffect(() => {
         const getimage = async () => {
@@ -90,8 +86,6 @@ export default function Control() {
                 setNow(false)
                 dow.classList.remove("active")
             }, 2000);
-
-            setCanvasUrl(canvas.toDataURL("image/jpg"))
         }
     })
 
@@ -206,12 +200,6 @@ export default function Control() {
                     >
                         <Download />
                     </a>
-
-
-                    <DownloadBtn url={canvasUrl}>
-
-                    </DownloadBtn>
-
 
                     <button
                         className={`
