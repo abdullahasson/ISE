@@ -200,11 +200,10 @@ export default function Container() {
 
                 <div className="p-10">
                     {
-                        Total == 0 ?
-                            null :
+                        show ?
                             <button className="moreButton" onClick={GetNewImage} >
                                 More
-                            </button>
+                            </button> : null
                     }
                 </div>
             </div>

@@ -46,12 +46,12 @@ html {
 }
 
 body {
-  background: #212121;
+  background: #8a8888;
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
   /* background-image: linear-gradient(to right bottom, #121212, #1d1d1e, #27282a, #303437, #3a4044); */
-  background-image: linear-gradient(to left top, #121212, #212122, #2e3033, #3c4145, #4a5257);
+  /* background-image: linear-gradient(to left top, #121212, #212122, #2e3033, #3c4145, #4a5257); */
 }
 
 .One {
@@ -126,10 +126,42 @@ body {
 }
 
 /* Small */
-@media (max-width: 360px) {
+@media (max-width: 460px) {
   .container {
     width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #2AF598;
+    margin: 0 auto;
+    padding: 0 12px;
   }
+
+  .container form {
+    background-color: #009efd;
+  }
+
+  #root {
+    background-color: palevioletred;
+    width: 100vw;
+    position: relative;
+  }
+
+  body {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    background-color: #aa4242 !important;
+    overflow: hidden;
+  }
+
+  .container .tital {
+    width: 100%;
+  }
+
+  .searchBox {
+    margin-top: 20px;
+  }
+
 }
 
 @media (min-width: 768px) {

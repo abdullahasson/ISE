@@ -6,6 +6,7 @@ import { Box, ImageListItem, ImageListItemBar, IconButton, Avatar } from "@mui/m
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { BlurhashCanvas } from "react-blurhash"
 import DownloadBtn from "../downloadBtn"
+import ShareBtn from "../shareButton";
 // Icon 
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -83,6 +84,7 @@ export default function ImageCountainer(Props) {
                                 <Avatar alt="Remy Sharp" src={Props.parm.user.profile_image.medium} />
                             </IconButton>
                             <DownloadBtn url={Props.parm.urls[getqulite]} />
+                            <ShareBtn Url={Props.parm.urls[getqulite]} />
                         </div>
                     }
                 />
