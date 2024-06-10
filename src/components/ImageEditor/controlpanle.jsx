@@ -3,20 +3,18 @@ import { useEffect, useState, useContext, createContext } from "react";
 import axios from 'axios';
 import { AppContext } from "../../App";
 // Components
+import CloseBtn from "../Buttons/CloseBtn"
 import Filters from "./filters";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
+import { faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import TuneIcon from '@mui/icons-material/Tune';
 import { Settings, ResetTv, Download } from "@mui/icons-material";
 // CSS
 import "../../Css/panle.css"
-
-
-
 
 
 
@@ -217,14 +215,13 @@ export default function Control() {
 
                 <div className="right-bar h-full p-2 w-auto bg-[#2e2d2d] absolute left-0 flex flex-col items-center justify-center gap-2">
 
-                    <button id='close' className="cursor-pointer bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
+                    <CloseBtn onClick={() => {
                         setshowpanle(false)
                         setValues(``)
                         document.body.style.overflow = "auto"
                         document.fullscreenElement == null ? null : handleToggleFullScreen()
-                    }}>
-                        <FontAwesomeIcon icon={faXmark} style={{ color: "#ffffff", }} />
-                    </button>
+                    }} />
+
 
                     <button id='wead' className="cursor-pointer flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0"
                         onClick={() => {

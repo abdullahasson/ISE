@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createContext, useState, useEffect } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Try from "./components/Try";
 
 const darkTheme = createTheme({
     palette: {
@@ -73,7 +74,6 @@ function App() {
         });
     }, [])
 
-
     return (
         <AppContext.Provider value={state}>
 
@@ -82,6 +82,7 @@ function App() {
                 <Router>
                     <Routes>
                         <Route path="/ISE/" element={<Container />} />
+                        <Route path="/ISE/Try/" element={<Try />} />
                     </Routes>
                 </Router>
             </ThemeProvider>

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { useRef, useState, useContext, useLayoutEffect, useReducer, forwardRef } from "react";
+import { useRef, useState, useContext, useLayoutEffect, useReducer, forwardRef, useEffect } from "react";
 // API CALLS
 import axios from 'axios';
 // CONTEXT API 
@@ -22,14 +22,18 @@ import {
     Dialog,
     Slide,
     Backdrop,
+    Box,
+    Tab
 } from "@mui/material";
-
+import {
+    TabContext,
+    TabList,
+    TabPanel
+} from '@mui/lab'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // CSS FILES
 import "react-lazy-load-image-component/src/effects/blur.css"
-
-
 
 
 
@@ -49,6 +53,7 @@ export const TransitionImageG = forwardRef(function Transition(props, ref) {
 });
 
 export default function Container() {
+
     const {
         open,
         setOpen,
@@ -71,13 +76,18 @@ export default function Container() {
     const [isDownloading, setIsDownloading] = useState(false);
     const [Total, setTotal] = useState("")
     const [newPage, setNewPage] = useState(2)
+    const [LoadMore, setMoreBtnLoad] = useState(false)
 
     const inputRef = useRef(null);
     useLayoutEffect(() => {
         inputRef.current.focus();
     }, []);
 
-    const Acces = "kwoGX8fZRJ3jT0fIXiGQApZDXret2VF3gRsaMZokv0g"
+    const Acces = import.meta.env.VITE_MAIN_API_KEY
+
+    useEffect(() => {
+        console.log(import.meta.env.VITE_MAIN_API_KEY)
+    }, [])
 
     const fetchData = async (parm) => {
         setIsDownloading(true)
@@ -103,6 +113,7 @@ export default function Container() {
 
 
     const moreData = async (parm, num) => {
+        setMoreBtnLoad(true)
         try {
             const response1 = axios.get(`https://api.unsplash.com/search/photos?page=${num}&query=${parm}&per_page=10content_filter=low&client_id=${Acces}`);
             const result = await Promise.all([response1]);
@@ -111,12 +122,12 @@ export default function Container() {
             dataImg.length == 0 ?
                 console.log("wait")
                 :
-                // console.log(dataImg)
                 setdataImg([...data2.results, ...dataImg])
 
         } catch (error) {
             console.log("error :" + error)
         }
+        setMoreBtnLoad(false)
     }
 
 
@@ -135,8 +146,6 @@ export default function Container() {
         setdataImg([])
     }
 
-
-
     function GetNewImage() {
         moreData(KeyWord, newPage)
         setNewPage(newPage + 1)
@@ -146,6 +155,13 @@ export default function Container() {
 
     const [state, dispatch] = useReducer(reducerMessageFun, { errorPoppup: false, errorMessage: "" })
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
+
+    const [value, setValue] = useState('1');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     return (
         <>
@@ -177,32 +193,57 @@ export default function Container() {
 
                 <form action="" onSubmit={(e) => { e.preventDefault() }} className="flex justify-between items-center flex-col gap-10 p-12 w-full">
                     <Title colorLetter="Image Search Engine" />
-                    <div className="searchBox">
-                        <input className="searchInput" type="text" value={KeyWord} name placeholder="Search something" onChange={(e) => {
-                            handleInputchange(e)
-                        }} ref={inputRef} style={{ pointerEvents: isDownloading ? "none" : "all" }} />
-                        <button id="fetch" className="searchButton" type="submit" style={{ pointerEvents: isDownloading ? "none" : "all" }} onClick={() => {
-                            if (KeyWord.length > 0) {
-                                fetchData(KeyWord)
-                            } else {
-                                dispatch({ type: "True", massege: "There Is nothing to Searsh" })
-                            }
-                        }}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={{ color: "#ffffff", }} />
-                        </button>
-                    </div>
+                    <TabContext value={value}>
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                            <TabList onChange={handleChange} aria-label="lab API tabs example">
+                                <Tab label="KeyWord" value="1" />
+                                <Tab label="Images" value="2" disabled />
+                                <Tab label="Url" value="3" disabled />
+                            </TabList>
+                        </Box>
+                        <TabPanel value="1">
+                            <div>
+                                <div className="searchBox">
+                                    <input className="searchInput" type="text" value={KeyWord} name placeholder="Search something" onChange={(e) => {
+                                        handleInputchange(e)
+                                    }} ref={inputRef} style={{ pointerEvents: isDownloading ? "none" : "all" }} />
+                                    <button id="fetch" className="searchButton" type="submit" style={{ pointerEvents: isDownloading ? "none" : "all" }} onClick={() => {
+                                        if (KeyWord.length > 0) {
+                                            fetchData(KeyWord)
+                                        } else {
+                                            dispatch({ type: "True", massege: "There Is nothing to Searsh" })
+                                        }
+                                    }}>
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={{ color: "#ffffff", }} />
+                                    </button>
+                                </div>
+                            </div>
+                        </TabPanel>
+                        <TabPanel value="2">
+                            <div>
+                                searsh with images
+                            </div>
+                        </TabPanel>
+                        <TabPanel value="3">
+                            <div>
+                                searsh with url
+                            </div>
+                        </TabPanel>
+                    </TabContext>
                 </form>
 
                 <ImageList style={{ overflowY: "hidden" }} variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
                     {show ? (dataImg.map((item) => (<ImageCountainer parm={item} />))) : null}
                 </ImageList>
 
-
                 <div className="p-10">
                     {
                         show ?
-                            <button className="moreButton" onClick={GetNewImage} >
-                                More
+                            <button className="moreButton flex justify-center items-center" onClick={GetNewImage} >
+                                {LoadMore
+                                    ?
+                                    <div className="lds-ellipsis"><div /><div /><div /></div>
+                                    : "More"}
                             </button> : null
                     }
                 </div>

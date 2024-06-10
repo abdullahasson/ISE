@@ -1,19 +1,17 @@
-import { useContext , useState } from "react"; 
+import { useContext, useState } from "react";
 // CONTEXT API 
 import { AppContext } from "../App";
 // MY COMPONENTS 
-
+import CloseBtn from "./Buttons/CloseBtn";
 // MY COMPONENTS LIBRARY
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { Box , Tab } from '@mui/material';
-import { 
-    TabContext ,
-    TabList ,
-    TabPanel 
+import { Box, Tab } from '@mui/material';
+import {
+    TabContext,
+    TabList,
+    TabPanel
 } from '@mui/lab'
 // ICONS
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import PersonIcon from '@mui/icons-material/Person';
 import ThreePIcon from '@mui/icons-material/ThreeP';
 import LocalSeeIcon from '@mui/icons-material/LocalSee';
@@ -28,33 +26,31 @@ export default function Photographers() {
         setValue(newValue);
     };
 
-    const { photographerInfo , setshowPhotographer, } = useContext(AppContext)
+    const { photographerInfo, setshowPhotographer, } = useContext(AppContext)
 
     return (
         <div className="photographers flex flex-col justify-between items-center p-2 min-w-[240px] g-4 " id={photographerInfo.id} >
-            <div id="close" className="cursor-pointer absolute left-0 top-0 m-2 bg-[#a15151] flex justify-center items-center p-[0.7rem] rounded-[100vmax] w-0 h-0" onClick={() => {
-                setshowPhotographer(false)
-            }}>
-                <FontAwesomeIcon icon={faXmark} />
-            </div>
+
+            <CloseBtn className="absolute left-1 top-1" onClick={() => { setshowPhotographer(false) }} />
+
             <div className="flex justify-center items-center w-[130px] h-[130px] bg-[#444] rounded-full">
-                <LazyLoadImage 
+                <LazyLoadImage
                     effect="blur"
                     src={photographerInfo.profile_image.large}
                     className="w-full h-full rounded-full"
                     delayMethod="debounce"
                     delayTime="100"
-                />   
+                />
             </div>
             <div className="info">
                 <Box sx={{ width: '100%', typography: 'body1' }}>
                     <TabContext value={value}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <TabList onChange={handleChange} aria-label="lab API tabs example">
-                            <Tab label={<PersonIcon />} value="1" />
-                            <Tab label={<LocalSeeIcon />} value="2" />
-                            <Tab label={<ThreePIcon />} value="3" />
-                        </TabList>
+                            <TabList onChange={handleChange} aria-label="lab API tabs example">
+                                <Tab label={<PersonIcon />} value="1" />
+                                <Tab label={<LocalSeeIcon />} value="2" />
+                                <Tab label={<ThreePIcon />} value="3" />
+                            </TabList>
                         </Box>
                         <TabPanel value="1">
                             <div>
@@ -70,10 +66,10 @@ export default function Photographers() {
                             <div>
                                 {/* total_promoted_photos */}
                                 <ul>
-                                    <li className="text-[16px] flex items-center justify-between"><p>Total photos  :</p> <span>{photographerInfo.total_photos }</span></li>
-                                    <li className="text-[16px] flex items-center justify-between"><p>Total promoted photos :</p> <span>{photographerInfo.total_promoted_photos }</span></li>
-                                    <li className="text-[16px] flex items-center justify-between"><p>Total likes  :</p> <span>{photographerInfo.total_likes }</span></li>
-                                    <li className="text-[16px] flex items-center justify-between"><p>total collections  :</p> <span>{photographerInfo.total_collections }</span></li>
+                                    <li className="text-[16px] flex items-center justify-between"><p>Total photos  :</p> <span>{photographerInfo.total_photos}</span></li>
+                                    <li className="text-[16px] flex items-center justify-between"><p>Total promoted photos :</p> <span>{photographerInfo.total_promoted_photos}</span></li>
+                                    <li className="text-[16px] flex items-center justify-between"><p>Total likes  :</p> <span>{photographerInfo.total_likes}</span></li>
+                                    <li className="text-[16px] flex items-center justify-between"><p>total collections  :</p> <span>{photographerInfo.total_collections}</span></li>
                                 </ul>
                             </div>
                         </TabPanel>
