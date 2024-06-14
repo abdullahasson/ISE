@@ -6,7 +6,7 @@ import { Box, ImageListItem, ImageListItemBar, IconButton, Avatar } from "@mui/m
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { BlurhashCanvas } from "react-blurhash"
 import DownloadBtn from "../Buttons/DownloadBtn"
-import ShareBtn from "../shareButton";
+import ShareBtn from "../Buttons/shareButton";
 // Icon 
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';

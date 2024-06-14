@@ -10,7 +10,7 @@ import Title from "./title";
 import Control from "./ImageEditor/controlpanle"
 import Poppup from "./poppup"
 import Drawe from "./Drawer";
-import Searshload from "./SearshLoad";
+import Searshload from "./Loaders/SearshLoad";
 import ImageG from "./imageG";
 import ContactUs from "./ContactUs";
 import Photographers from "./photographers";

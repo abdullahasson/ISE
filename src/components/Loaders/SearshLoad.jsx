@@ -1,4 +1,4 @@
-import "../Css/SearshLoad.css"
+import "./SearshLoad.css"
 
 export default function Searshload() {
     return (
