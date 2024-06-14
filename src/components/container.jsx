@@ -23,7 +23,8 @@ import {
     Slide,
     Backdrop,
     Box,
-    Tab
+    Tab,
+    Tooltip
 } from "@mui/material";
 import {
     TabContext,
@@ -197,8 +198,8 @@ export default function Container() {
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList onChange={handleChange} aria-label="lab API tabs example">
                                 <Tab label="KeyWord" value="1" />
-                                <Tab label="Images" value="2" disabled />
-                                <Tab label="Url" value="3" disabled />
+                                <Tab label="Images" value="2" />
+                                <Tab label="Url" value="3" />
                             </TabList>
                         </Box>
                         <TabPanel value="1">
@@ -221,12 +222,12 @@ export default function Container() {
                         </TabPanel>
                         <TabPanel value="2">
                             <div>
-                                searsh with images
+                                For paid account only
                             </div>
                         </TabPanel>
                         <TabPanel value="3">
                             <div>
-                                searsh with url
+                                For paid account only
                             </div>
                         </TabPanel>
                     </TabContext>
